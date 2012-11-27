@@ -37,8 +37,7 @@
         $html_start_pos = strpos($html, $html_start) + strlen($html_start);
         $html_end = '</html>';
         $html = substr($html, $html_start_pos , strpos($html, $html_end, $html_start_pos) - $html_start_pos);
-        preg_match_all('#Group Email:.*?<a href="(.*?)">.*?Web Site.*?<a href="(.*?)">#si', $html, $info_extra, PREG_SET_ORDER);
-        // preg_match_all('#Group Email:.*?<a href="(.*?)">#si', $html, $info_extra, PREG_SET_ORDER);
+        preg_match_all('#<p>(.*?)</p>.*?Members:</strong>\s*(.*?)\s*</li>.*?Involvement:</strong>\s*(.*?)\s*</li>.*?Group Email:.*?<a href="(.*?)">.*?Web Site.*?<a href="(.*?)">.*?Elections:</strong>\s*(.*?)</li>.*?Updated:</strong>\s*(.*?)</li>#si', $html, $info_extra, PREG_SET_ORDER);
         print_r($info_extra);
     }
     
