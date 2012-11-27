@@ -15,17 +15,20 @@
     preg_match_all('#(\d+)">(.*?)</a><br />#si', $html, $activities, PREG_SET_ORDER);
     print_r($activities);
     // insert data from scraping into mySQL
+    $query = "INSERT INTO activities (id, name) VALUES ";
     foreach ($activities as $id)
     {
-        query ("INSERT INTO activities (id, name) VALUES($id[1], " . "'" . mres($id[2]) . "')");
+        $query .= '('. $id[1] . ", '" . mres($id[2]) . "'), ";
     }
+    $query = substr($query, 0, strlen($query) - 2);
+    query('TRUNCATE activities');
+    query($query);
     
     // necessary so that apostrophes in org. names don't truncate string
     function mres($value)
     {
         $search = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
         $replace = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
-
         return str_replace($search, $replace, $value);
     }
 ?>
