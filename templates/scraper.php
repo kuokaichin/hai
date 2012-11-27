@@ -11,13 +11,17 @@
 
     // make sure that we got the right substring
     echo $html;    
-
     // array to put scraped data
     $activities = array();
-    preg_match_all('#(?<=id=)(\d*)#si', $html, $activities);
-    preg_match_all('#(?<=>)(.*?)(?=</)#si', $html, $activities);    
+    preg_match_all('#(?<=id=)(\d*)#si', $html, $activities_id);
+    preg_match_all('#(?<=>)(.*?)(?=</)#si', $html, $activities_name);  
+    foreach ($activities_id[0] as $id)
+    {
+        query("INSERT INTO activities (id) VALUES($id)");
+    }
+  
     
-    print_r($activities);
+    print_r($activities_id);
 
 ?>
 
