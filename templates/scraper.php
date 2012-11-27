@@ -11,18 +11,23 @@
 
     // make sure that we got the right substring
     echo $html;    
-    // array to put scraped data
-    $activities = array();
-    preg_match_all('#(?<=id=)(\d*)#si', $html, $activities_id);
-    preg_match_all('#(?<=>)(.*?)(?=</)#si', $html, $activities_name);  
-    foreach ($activities_id[0] as $id)
+    // scrape data and put it into array
+    preg_match_all('#(\d+)">(.*?)</a><br />#si', $html, $activities, PREG_SET_ORDER);
+    print_r($activities);
+    // insert data from scraping into mySQL
+    foreach ($activities as $id)
     {
-        query("INSERT INTO activities (id) VALUES($id)");
+        query ("INSERT INTO activities (id, name) VALUES($id[1], " . "'" . mres($id[2]) . "')");
     }
-  
     
-    print_r($activities_id);
+    // necessary so that apostrophes in org. names don't truncate string
+    function mres($value)
+    {
+        $search = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
+        $replace = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
 
+        return str_replace($search, $replace, $value);
+    }
 ?>
 
 
