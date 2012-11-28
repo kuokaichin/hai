@@ -11,17 +11,18 @@
         $time_prev = $time_now;
     }
     
-    
-
-    // get html from website    
-    
     function beginscrape()
     {
         $url = "http://usodb.fas.harvard.edu/public/index.cgi";    
         $html = file_get_contents($url);        
+        insert_categories(parse_categories($html));
         since('After calling file_get_contents()');
         // demarcate the beginning and end of portion we want to work with
-        insert(parse_list($html));
+        insert_activities(parse_list($html));
+    }
+    
+    function parse_categories($html)
+    {
     }
     
     function parse_list($html)
@@ -41,15 +42,6 @@
             $activities_all[$i] += parse_one($activities_all[$i]['id']);
         }
         $activities_all = unset_numeric_keys_($activities_all);
-        print_r($activities_all);
-        /*
-        foreach ($activities_all as $info_basic)
-        {
-            // combine the two arrays
-            $info_basic += parse_one($info_basic['id']);
-        }
-        print_r($activities_all);
-        */
         return $activities_all;
     }
     
@@ -68,7 +60,7 @@
         return $info_extra;
     }
     
-    function insert($activities_all)
+    function insert_activities($activities_all)
     {
   
         // insert data from scraping into mySQL
@@ -77,37 +69,37 @@
         {
             $query .= "('". mres($activities_all[$i]['id']) . "', '" . mres($activities_all[$i]['name']) . "', '" . mres($activities_all[$i]['description']) . "', '" . mres($activities_all[$i]['email']) . "', '" . mres($activities_all[$i]['website']) . "', '" . mres($activities_all[$i]['size']) . "', '" . mres($activities_all[$i]['members']) . "', '" . mres($activities_all[$i]['election']) . "', '" . mres($activities_all[$i]['osl_updated']) . "'), " ;        
         }
-/*
-        foreach ($activities_all as $activity)
-        {
-            $query .= '('. $activity['id'] . ", '" . mres($activity['name']) . "', '" . mres($activity['description']) . "', '" . mres($activity['email']) . "', '" . mres($activity['website']) . "', '" . mres($activity['size']) . "', '" . mres($activity['members']) . "', '" . mres($activity['election']) . "', '" . mres($activity['osl_updated']) . "'), " ;
-        }
-*/
         $query = substr($query, 0, strlen($query) - 2);
         query('TRUNCATE activities');
         query($query);
     }
+    
+    function insert_categories($categories_all)
+    {
+    }
         
-        // necessary so that apostrophes in org. names don't truncate string, other problems
-        // from http://stackoverflow.com/questions/1162491/alternative-to-mysql-real-escape-string-without-connecting-to-db
-        function mres($value)
+    // necessary so that apostrophes in org. names don't truncate string, other problems
+    // from http://stackoverflow.com/questions/1162491/alternative-to-mysql-real-escape-string-without-connecting-to-db
+    function mres($value)
+    {
+        return strtr($value, array( "\x00" => '\x00', "\n" => '\n', "\r" => '\r', '\\' => '\\\\', "'" => "\'", '"' => '\"', "\x1a" => '\x1a' ));
+    }
+    
+    
+    function unset_numeric_keys($a) 
+    {
+        foreach ($a as $i => $ai)
         {
-            return strtr($value, array( "\x00" => '\x00', "\n" => '\n', "\r" => '\r', '\\' => '\\\\', "'" => "\'", '"' => '\"', "\x1a" => '\x1a' ));
+            if (is_numeric($i))
+            unset($a[$i]);
         }
-        function unset_numeric_keys($a) 
-        {
-            foreach ($a as $i => $ai)
-            {
-                if (is_numeric($i))
-                unset($a[$i]);
-            }
-            return $a;
-        }
-        function unset_numeric_keys_($a) 
-        {
-            return array_map('unset_numeric_keys', $a);
-        }
-  
+        return $a;
+    }
+    function unset_numeric_keys_($a) 
+    {
+        return array_map('unset_numeric_keys', $a);
+    }
+
 
 
 
