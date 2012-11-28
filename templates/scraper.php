@@ -1,8 +1,8 @@
 <? 
-    beginscrape();
-    
     $time_start = microtime(1);
     $time_prev = $time_start;
+    beginscrape();      
+
     function since($desc) 
     {
         global $time_start, $time_prev;
@@ -10,6 +10,7 @@
         echo '<p>Since start: ' . number_format($time_now - $time_start, 4) . '; since previous: ' . number_format($time_now - $time_prev, 4) . ' &mdash; ' . $desc . '</p>';
         $time_prev = $time_now;
     }
+    
     
 
     // get html from website    
@@ -20,8 +21,7 @@
         $html = file_get_contents($url);        
         since('After calling file_get_contents()');
         // demarcate the beginning and end of portion we want to work with
-        parse_list($html);
-//      insert(parse_list($html));
+        insert(parse_list($html));
     }
     
     function parse_list($html)
@@ -40,8 +40,8 @@
         {
             $activities_all[$i] += parse_one($activities_all[$i]['id']);
         }
+        $activities_all = unset_numeric_keys_($activities_all);
         print_r($activities_all);
-        
         /*
         foreach ($activities_all as $info_basic)
         {
@@ -50,8 +50,7 @@
         }
         print_r($activities_all);
         */
-
-//        return $activities_all;
+        return $activities_all;
     }
     
     function parse_one($id)
@@ -65,7 +64,7 @@
         $html_end = '</html>';
         $html = substr($html, $html_start_pos , strpos($html, $html_end, $html_start_pos) - $html_start_pos);
         // capture fields of interest
-        preg_match('#<p>(?P<description>.*?)</p>.*?Members:</strong>\s*(?P<size>.*?)\s*</li>.*?Involvement:</strong>\s*(?P<members>.*?)\s*</li>.*?Group Email:.*?<a href="(?P<email>.*?)">.*?Web Site.*?<a href="(?P<website>.*?)">.*?Elections:</strong>\s*(?P<election>.*?)</li>.*?Updated:</strong>\s*(?P<updated>.*?)</li>#si', $html, $info_extra);
+        preg_match('#<p>(?P<description>.*?)</p>.*?Members:</strong>\s*(?P<size>.*?)\s*</li>.*?Involvement:</strong>\s*(?P<members>.*?)\s*</li>.*?Group Email:.*?<a href="(?P<email>.*?)">.*?Web Site.*?<a href="(?P<website>.*?)">.*?Elections:</strong>\s*(?P<election>\w*)\s*.*?</strong>\s*(?P<osl_updated>\w*\s\S*\s\d*)\s#si', $html, $info_extra);
         return $info_extra;
     }
     
@@ -73,26 +72,44 @@
     {
   
         // insert data from scraping into mySQL
-        $query = "INSERT INTO activities (id, name, description, email, website, size, members, election, updated) VALUES ";
-        echo $query;
+        $query = "INSERT INTO activities (id, name, description, email, website, size, members, election, osl_updated) VALUES ";
+        for ($i = 0; $i < 10; $i++)
+        {
+            $query .= "('". mres($activities_all[$i]['id']) . "', '" . mres($activities_all[$i]['name']) . "', '" . mres($activities_all[$i]['description']) . "', '" . mres($activities_all[$i]['email']) . "', '" . mres($activities_all[$i]['website']) . "', '" . mres($activities_all[$i]['size']) . "', '" . mres($activities_all[$i]['members']) . "', '" . mres($activities_all[$i]['election']) . "', '" . mres($activities_all[$i]['osl_updated']) . "'), " ;        
+        }
+/*
         foreach ($activities_all as $activity)
         {
-            $query .= '('. $activity[id] . ", '" . mres($activity[name]) . "', '" . mres($activity[decription]) . "', '" . mres($activity[email]) . "', '" . mres($activity[website]) . "', '" . mres($activity[size]) . "', '" . mres($activity[members]) . "', '" . mres($activity[election]) . "', '" . mres($activity[updated]) . "'), " ;
+            $query .= '('. $activity['id'] . ", '" . mres($activity['name']) . "', '" . mres($activity['description']) . "', '" . mres($activity['email']) . "', '" . mres($activity['website']) . "', '" . mres($activity['size']) . "', '" . mres($activity['members']) . "', '" . mres($activity['election']) . "', '" . mres($activity['osl_updated']) . "'), " ;
         }
+*/
         $query = substr($query, 0, strlen($query) - 2);
-        echo $query;
-        // query('TRUNCATE activities');
-        // query($query);
+        query('TRUNCATE activities');
+        query($query);
     }
         
-        // necessary so that apostrophes in org. names don't truncate string
+        // necessary so that apostrophes in org. names don't truncate string, other problems
         // from http://stackoverflow.com/questions/1162491/alternative-to-mysql-real-escape-string-without-connecting-to-db
         function mres($value)
         {
-            $search = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
-            $replace = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
-            return str_replace($search, $replace, $value);
+            return strtr($value, array( "\x00" => '\x00', "\n" => '\n', "\r" => '\r', '\\' => '\\\\', "'" => "\'", '"' => '\"', "\x1a" => '\x1a' ));
         }
+        function unset_numeric_keys($a) 
+        {
+            foreach ($a as $i => $ai)
+            {
+                if (is_numeric($i))
+                unset($a[$i]);
+            }
+            return $a;
+        }
+        function unset_numeric_keys_($a) 
+        {
+            return array_map('unset_numeric_keys', $a);
+        }
+  
+
+
 
 ?>
 
