@@ -1,6 +1,16 @@
 <? 
     beginscrape();
-
+    
+    $time_start = microtime(1);
+    $time_prev = $time_start;
+    function since($desc) 
+    {
+        global $time_start, $time_prev;
+        $time_now = microtime(1);
+        echo '<p>Since start: ' . number_format($time_now - $time_start, 4) . '; since previous: ' . number_format($time_now - $time_prev, 4) . ' &mdash; ' . $desc . '</p>';
+        $time_prev = $time_now;
+    }
+    
 
     // get html from website    
     
@@ -8,6 +18,7 @@
     {
         $url = "http://usodb.fas.harvard.edu/public/index.cgi";    
         $html = file_get_contents($url);        
+        since('After calling file_get_contents()');
         // demarcate the beginning and end of portion we want to work with
         parse_list($html);
 //      insert(parse_list($html));
@@ -23,31 +34,24 @@
         // scrape id and name of activity and put it into array
         preg_match_all('#(?P<id>\d+)">(?P<name>.*?)</a><br />#si', $html, $activities_all, PREG_SET_ORDER);
 
-        // call separate function for scraping additional activity info
-        $info_extra = parse_one($activities_all[306][1]);
+        // takes every activity and adds on info from activity specific site
         
-        // add additionally scraped info into associative array for one instance
-        $activities_all[306]['description'] = $info_extra['description'];
-        $activities_all[306]['email'] = $info_extra['email'];
-        $activities_all[306]['website'] = $info_extra['website'];
-        $activities_all[306]['size'] = $info_extra['size'];
-        $activities_all[306]['members'] = $info_extra['members'];
-        $activities_all[306]['election'] = $info_extra['election'];
-        $activities_all[306]['updated'] = $info_extra['updated'];
-/*
-        
-        foreach($activities_all as $i => $info_basic)
+        for ($i = 0; $i < 10; $i++)
         {
-            $info_extra = parse_one($info_basic[1]);
-            foreach ($info_extra as $info)
-            {
-                $info_basic = array_merge($info_basic, $info);
-            }
+            $activities_all[$i] += parse_one($activities_all[$i]['id']);
         }
         print_r($activities_all);
+        
+        /*
+        foreach ($activities_all as $info_basic)
+        {
+            // combine the two arrays
+            $info_basic += parse_one($info_basic['id']);
+        }
+        print_r($activities_all);
+        */
 
-*/
-        return $activities_all;
+//        return $activities_all;
     }
     
     function parse_one($id)
