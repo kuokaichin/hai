@@ -1,8 +1,10 @@
 <div>    
-    Symbol: <?echo $symbol ;?> <br/>
-    Name: <?echo $name ;?> <br/>
-    Price: <?echo $price ;?> <br/>
+    Activity Name: <?print_r($results['name']) ;?> <br/>
+    Description: <br/>
+    Overall Rating: <br/>
+    Tags: <br/>
+    <br/>
 </div>
 <div>
-    <a href="quote.php">Quote Again</a>
+    <a href="activity.php">Details</a>
 </div>

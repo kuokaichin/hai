@@ -52,16 +52,16 @@
     /**
      * Returns a stock by symbol (case-insensitively) else false if not found.
      */
-    function lookup($symbol)
+    function lookup($search_value)
     {
         // reject symbols that start with ^
-        if (preg_match("/^\^/", $symbol))
+        if (preg_match("/^\^/", $search_value))
         {
             return false;
         }
 
         // reject symbols that contain commas
-        if (preg_match("/,/", $symbol))
+        if (preg_match("/,/", $search_value))
         {
             return false;
         }

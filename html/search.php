@@ -5,17 +5,20 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         // check that all fields have proper inputs
-        if (empty($_POST["symbol"]))
+        if (empty($_POST["search_value"]))
         {
-            apologize("You must provide a stock symbol.");
+            apologize("Your search cannot be empty.");
         }
-        else if (lookup($_POST["symbol"]) === false)
+        /*
+        else if (lookup($_POST["search_value"]) === false)
         {
-            apologize("Stock not found.");
+            apologize("No activities found.");
         }
-            // get stock symbol and show its values
-            $stock = lookup($_POST["symbol"]);
-            render("/quote_result.php", ["title" => "Quote", "symbol" => $stock["symbol"], "name" => $stock["name"], "price" => $stock["price"]]);
+        */
+            // get array of ID numbers of applicable orgs
+            // $results = lookup($_POST["search_value"]);
+            $results = array('name' => 'Piano Society', 'id' => 1);
+            render("/search_result.php", ["title" => "Search Result", "results" => $results]);
     }
     else
     {
