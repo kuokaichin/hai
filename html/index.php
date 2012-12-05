@@ -3,6 +3,6 @@
     require("../includes/config.php"); 
 
     // render portfolio
-    render("search.php", ["title" => "Search Student Activities!"]);
+    render("index_view.php", ["title" => "Search Student Activities!"]);
 
 ?>
