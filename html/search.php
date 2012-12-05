@@ -16,7 +16,7 @@
         }
         */
             // get array of ID numbers of applicable orgs
-            // $results = lookup($_POST["search_value"]);
+            // $results = lookup_quick($_POST["search_value"]);
             $results = array('name' => 'Piano Society', 'id' => 1);
             render("/search_result.php", ["title" => "Search Result", "results" => $results]);
     }

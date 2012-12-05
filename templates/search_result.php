@@ -2,8 +2,10 @@
     Activity Name: <?print_r($results['name']) ;?> <br/>
     Description: <br/>
     Overall Rating: <br/>
-    Tags: <br/>
     <br/>
+</div>
+<div>   
+    Tags: <br/>
 </div>
 <form action="activity.php" method="post">
     <fieldset>

@@ -96,6 +96,33 @@
             "price" => $data[2],
         ];
     }
+    
+    function lookup_detailed($activity_id)
+    {
+        $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
+        return $data1;
+        
+
+        /*
+        // return activity's info as an associative array
+        return [
+            'name' => $data1['name'],
+            'description' => $data1['description'],
+            'email' => $data1['email'],
+            'website' => $data1['website'],
+            'size' => $data1['website'],
+            'members' => $data1['members'],
+            'satisfaction' => $data2['satisfaction'],
+            'time' => $data2['time'],
+            'organization' => $data2['organization'],
+            'selectiveness' => $data2['selectiveness'],
+            'friendliness' => $data2['friendliness'],
+            'tags' => $data3['tags']
+        ];
+        */
+    }
+    
+    
 
     /**
      * Executes SQL statement, possibly with parameters, returning

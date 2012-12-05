@@ -1,7 +1,21 @@
 <div>    
-    Activity Name: <br/>
-    Description: <br/>
-    Overall Rating: <br/>
-    Tags: <br/>
-    LOTS MORE EXCITING DETAILS ABOUT THIS ACTIVITY BYAAAAAAH<br/>
+    Activity Name: <?echo $name;?> <br/>
+    Description: <?echo $description;?><br/>
+    Email: <?echo $email;?><br/>
+    Website: <?echo $website;?><br/>
+    Size: <?echo $size;?><br/>
+    Members: <?echo $members;?><br/>
+</div>
+<div>
+    Overall Satisfaction: <?echo $satisfaction;?><br/>
+    Time Commitment: <?echo $commitment;?><br/>
+    Organization & Professionalism: <?echo $organization;?><br/>    
+    Selectiveness: <?echo $selectiveness;?><br/>
+    Friendliness: <?echo $friendliness;?><br/>    
+</div>
+<div>
+    Read Comments or I guess have top comments with a link to more comments <br/>
+</div>
+<div>
+    Tags: <?echo $tags;?><br/>
 </div>

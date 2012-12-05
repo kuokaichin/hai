@@ -10,19 +10,19 @@
             apologize("What activity is this?!?!");
         }
         /*
-        else if (lookup($_POST["search_value"]) === false)
+        else if (lookup($_POST["activity_id"]) === false)
         {
             apologize("No activity details found.");
         }
         */
-            // get array of ID numbers of applicable orgs
-            // $results = lookup($_POST["search_value"]);
-            $results = array('name' => 'Piano Society', 'id' => 1);
-            render("/activity_view.php", ["title" => "Search Result", "results" => $results]);
+            // $results = lookup_detailed($_POST["search_value"]);
+        print_r(lookup_detailed(4));
+        // render("/activity_view.php", ["title" => "Search Result", "results" => $results]);
     }
     else
     {
     // else render form
-    render("activity_view.php", ["title" => "Activity Name Goes HERE"]);
+    // render("activity_view.php", ["title" => "Activity Name Goes HERE"]);
+    print_r(lookup_detailed(4));
     }
 ?>
