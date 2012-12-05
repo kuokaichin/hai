@@ -17,7 +17,7 @@
         $html = file_get_contents($url);        
         insert_categories(parse_categories($html));
         since('After calling file_get_contents()');        
-        // insert_activities(parse_list($html));
+        insert_activities(parse_list($html));
     }
     
     function parse_categories($html)
@@ -29,7 +29,6 @@
         
         // pull OSL category and the ID they assign to later add to tag table
         preg_match_all('#value="(\d*?)".*?>\s*(.*?)\s<#si', $html, $categories_all, PREG_SET_ORDER);                
-        print_r($categories_all);
         return $categories_all;        
     }
     
@@ -43,10 +42,9 @@
 
         // scrape id and name of activity and put it into array
         preg_match_all('#(?P<id>\d+)">(?P<name>.*?)</a><br />#si', $html, $activities_all, PREG_SET_ORDER);
-
-        // takes every activity and adds on info from activity specific site
         
-        for ($i = 0; $i < 10; $i++)
+        // takes every activity and adds on info from activity specific site        
+        for ($i = 0; $i < 5; $i++)
         {
             $activities_all[$i] += parse_one($activities_all[$i]['id']);
         }
@@ -55,36 +53,45 @@
     }
     
     function parse_one($id)
-    {
-    
-        // this is for matching the tags, not quite right yet.
-        preg_match_all('#category=(\d*?)">#si', $html, $categories_all, PREG_SET_ORDER);
-    
+    {   
         // go to url specific to an activity
         $url = 'http://usodb.fas.harvard.edu/public/index.cgi?rm=details&id=' . $id;
         // grab the html and reduce it to relevant portions
         $html = file_get_contents($url);
+        // for activities-tags linking
+        preg_match_all('#category=(\d*?)">#si', $html, $activities_tags, PREG_SET_ORDER);
         $html_start = '</h2>';
         $html_start_pos = strpos($html, $html_start) + strlen($html_start);
         $html_end = '</html>';
         $html = substr($html, $html_start_pos , strpos($html, $html_end, $html_start_pos) - $html_start_pos);
         // capture fields of interest
         preg_match('#<p>(?P<description>.*?)</p>.*?Members:</strong>\s*(?P<size>.*?)\s*</li>.*?Involvement:</strong>\s*(?P<members>.*?)\s*</li>.*?Group Email:.*?<a href="(?P<email>.*?)">.*?Web Site.*?<a href="(?P<website>.*?)">.*?Elections:</strong>\s*(?P<election>\w*)\s*.*?</strong>\s*(?P<osl_updated>\w*\s\S*\s\d*)\s#si', $html, $info_extra);
-        return $info_extra;
+        $tag_ids = array( 'tag_id' => $activities_tags );
+        return $info_extra + $tag_ids;
     }
     
     function insert_activities($activities_all)
     {
-  
-        // insert data from scraping into mySQL
-        $query = "INSERT INTO activities (id, name, description, email, website, size, members, election, osl_updated) VALUES ";
-        for ($i = 0; $i < 10; $i++)
+        // insert data from scraping into mySQL (2 separate, one for activities-tags relationship)
+        $query1 = "INSERT INTO activities (id, name, description, email, website, size, members, election, osl_updated) VALUES ";
+        $query2 = "INSERT INTO activities_tags (activity_id, tag_id) VALUES ";
+        
+        // for each activity
+        for ($i = 0; $i < 5; $i++)
         {
-            $query .= "('". mres($activities_all[$i]['id']) . "', '" . mres($activities_all[$i]['name']) . "', '" . mres($activities_all[$i]['description']) . "', '" . mres($activities_all[$i]['email']) . "', '" . mres($activities_all[$i]['website']) . "', '" . mres($activities_all[$i]['size']) . "', '" . mres($activities_all[$i]['members']) . "', '" . mres($activities_all[$i]['election']) . "', '" . mres($activities_all[$i]['osl_updated']) . "'), " ;        
+            $query1 .= "('". mres($activities_all[$i]['id']) . "', '" . mres($activities_all[$i]['name']) . "', '" . mres($activities_all[$i]['description']) . "', '" . mres($activities_all[$i]['email']) . "', '" . mres($activities_all[$i]['website']) . "', '" . mres($activities_all[$i]['size']) . "', '" . mres($activities_all[$i]['members']) . "', '" . mres($activities_all[$i]['election']) . "', '" . mres($activities_all[$i]['osl_updated']) . "'), " ;        
+            // every tag_id associated with this particular activity
+            foreach ($activities_all[$i]['tag_id'] as $id)
+            {
+                $query2 .= "('" . mres($activities_all[$i]['id']) . "', '". mres($id[1]) . "'), "; 
+            }
         }
-        $query = substr($query, 0, strlen($query) - 2);
+        $query1 = substr($query1, 0, strlen($query1) - 2);
+        $query2 = substr($query2, 0, strlen($query2) - 2);
         query('TRUNCATE activities');
-        query($query);
+        query($query1);
+        query($query2);
+        
     }
     
     function insert_categories($categories_all)
