@@ -15,10 +15,8 @@
     {
         $url = "http://usodb.fas.harvard.edu/public/index.cgi";    
         $html = file_get_contents($url);        
-        parse_categories($html);
-        // insert_categories(parse_categories($html));
-        since('After calling file_get_contents()');
-        
+        insert_categories(parse_categories($html));
+        since('After calling file_get_contents()');        
         // insert_activities(parse_list($html));
     }
     
@@ -31,7 +29,8 @@
         
         // pull OSL category and the ID they assign to later add to tag table
         preg_match_all('#value="(\d*?)".*?>\s*(.*?)\s<#si', $html, $categories_all, PREG_SET_ORDER);                
-        print_r($categories_all);        
+        print_r($categories_all);
+        return $categories_all;        
     }
     
     function parse_list($html)
@@ -90,6 +89,14 @@
     
     function insert_categories($categories_all)
     {
+        $query = "INSERT INTO tags (tag_id, tag_name) VALUES ";
+        foreach ($categories_all as $tag)
+        {
+            // html_entity_decode fixes ampersands, apostrophes for table
+            $query .= "('" . mres($tag[1]) . "', '" . mres(html_entity_decode($tag[2], ENT_QUOTES)) . "'), ";
+        }
+        $query = substr($query, 0, strlen($query) - 2);
+        query($query);
     }
         
     // necessary so that apostrophes in org. names don't truncate string, other problems
