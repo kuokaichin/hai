@@ -1,4 +1,4 @@
-<? 
+<?
     $time_start = microtime(1);
     $time_prev = $time_start;
     beginscrape();      
@@ -37,18 +37,28 @@
         // demarcate the beginning and end of portion we want to work with
         $html_start = '<ul>';
         $html_start_pos = strpos($html, $html_start) + strlen($html_start);
+
         $html_end = '</ul>';
         $html = substr($html, $html_start_pos , strpos($html, $html_end, $html_start_pos) - $html_start_pos);
 
         // scrape id and name of activity and put it into array
+
         preg_match_all('#(?P<id>\d+)">(?P<name>.*?)</a><br />#si', $html, $activities_all, PREG_SET_ORDER);
         
+        /*
+        foreach ($activities_all as $activity)
+        {
+            $activity += parse_one($activity['id']);
+        }
+        */
+        
         // takes every activity and adds on info from activity specific site        
-        for ($i = 0; $i < 5; $i++)
+        for ($i = 400; $i < 442; $i++)
         {
             $activities_all[$i] += parse_one($activities_all[$i]['id']);
         }
         $activities_all = unset_numeric_keys_($activities_all);
+        
         return $activities_all;
     }
     
@@ -63,6 +73,7 @@
         $html_start = '</h2>';
         $html_start_pos = strpos($html, $html_start) + strlen($html_start);
         $html_end = '</html>';
+
         $html = substr($html, $html_start_pos , strpos($html, $html_end, $html_start_pos) - $html_start_pos);
         // capture fields of interest
         preg_match('#<p>(?P<description>.*?)</p>.*?Members:</strong>\s*(?P<size>.*?)\s*</li>.*?Involvement:</strong>\s*(?P<members>.*?)\s*</li>.*?Group Email:.*?<a href="(?P<email>.*?)">.*?Web Site.*?<a href="(?P<website>.*?)">.*?Elections:</strong>\s*(?P<election>\w*)\s*.*?</strong>\s*(?P<osl_updated>\w*\s\S*\s\d*)\s#si', $html, $info_extra);
@@ -74,10 +85,21 @@
     {
         // insert data from scraping into mySQL (2 separate, one for activities-tags relationship)
         $query1 = "INSERT INTO activities (id, name, description, email, website, size, members, election, osl_updated) VALUES ";
+
         $query2 = "INSERT INTO activities_tags (activity_id, tag_id) VALUES ";
         
+        /*foreach ($activities_all as $activity)
+        {
+            $query1 .= "('". mres($activity['id']) . "', '" . mres($activity['name']) . "', '" . mres($activity['description']) . "', '" . mres($activity['email']) . "', '" . mres($activity['website']) . "', '" . mres($activity['size']) . "', '" . mres($activity['members']) . "', '" . mres($activity['election']) . "', '" . mres($activity['osl_updated']) . "'), " ;        
+            // every tag_id associated with this particular activity
+            foreach ($activity['tag_id'] as $id)
+            {
+                $query2 .= "('" . mres($activity['id']) . "', '". mres($id[1]) . "'), "; 
+            }
+        }
         // for each activity
-        for ($i = 0; $i < 5; $i++)
+        */
+        for ($i = 400; $i < 442; $i++)
         {
             $query1 .= "('". mres($activities_all[$i]['id']) . "', '" . mres($activities_all[$i]['name']) . "', '" . mres($activities_all[$i]['description']) . "', '" . mres($activities_all[$i]['email']) . "', '" . mres($activities_all[$i]['website']) . "', '" . mres($activities_all[$i]['size']) . "', '" . mres($activities_all[$i]['members']) . "', '" . mres($activities_all[$i]['election']) . "', '" . mres($activities_all[$i]['osl_updated']) . "'), " ;        
             // every tag_id associated with this particular activity
@@ -86,9 +108,10 @@
                 $query2 .= "('" . mres($activities_all[$i]['id']) . "', '". mres($id[1]) . "'), "; 
             }
         }
+        
         $query1 = substr($query1, 0, strlen($query1) - 2);
         $query2 = substr($query2, 0, strlen($query2) - 2);
-        query('TRUNCATE activities');
+        // probably don't need this eventually
         query($query1);
         query($query2);
         
@@ -128,9 +151,7 @@
         return array_map('unset_numeric_keys', $a);
     }
 
-
-
-
 ?>
+
 
 
