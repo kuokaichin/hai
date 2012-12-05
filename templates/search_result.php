@@ -5,6 +5,13 @@
     Tags: <br/>
     <br/>
 </div>
-<div>
-    <a href="activity.php">Details</a>
-</div>
+<form action="activity.php" method="post">
+    <fieldset>
+        <div class="control-group">
+            <input autofocus name="activity_id" placeholder="name, category...etc" type="text"/>
+        </div>
+        <div class="control-group">
+            <button type="search_value" class="btn">Details</button>
+        </div>
+    </fieldset>
+</form>
