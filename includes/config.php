@@ -4,7 +4,7 @@
      * config.php
      *
      * Computer Science 50
-     * Problem Set 7
+     * 
      *
      * Configures pages.
      **********************************************************************/
@@ -22,15 +22,15 @@
 
     // require authentication for most pages
     // change this to require changes if you want to be admin and scrape!
-   /* 
-   if (!preg_match("{(?:index|login|logout|register)\.php$}", $_SERVER["PHP_SELF"]))
+    
+    if (!preg_match("{(?:index|login|logout|register)\.php$}", $_SERVER["PHP_SELF"]))
     {
         if (empty($_SESSION["id"]))
         {
             redirect("login.php");
         }
     }
-    */
+    
 	
 
 ?>
