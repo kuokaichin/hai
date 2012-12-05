@@ -30,3 +30,7 @@
 
             <div id="middle">
 
+            <ul class="nav nav-pills">
+                <li><a href="search.php">Search</a></li>
+                <li><a href="login.php">Admin Login</a></li>
+            </ul>

@@ -37,3 +37,8 @@
     /* center contents */
     text-align: center;
 }
+
+#middle .nav
+{
+    display: inline-block;
+}
