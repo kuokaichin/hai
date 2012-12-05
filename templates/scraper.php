@@ -15,18 +15,28 @@
     {
         $url = "http://usodb.fas.harvard.edu/public/index.cgi";    
         $html = file_get_contents($url);        
-        insert_categories(parse_categories($html));
+        parse_categories($html);
+        // insert_categories(parse_categories($html));
         since('After calling file_get_contents()');
-        // demarcate the beginning and end of portion we want to work with
-        insert_activities(parse_list($html));
+        
+        // insert_activities(parse_list($html));
     }
     
     function parse_categories($html)
     {
+        $html_start = '<ul class="org-cats-2">';
+        $html_start_pos = strpos($html, $html_start) + strlen($html_start);
+        $html_end = '</ul>';
+        $html = substr($html, $html_start_pos , strpos($html, $html_end, $html_start_pos) - $html_start_pos);
+        
+        // pull OSL category and the ID they assign to later add to tag table
+        preg_match_all('#value="(\d*?)".*?>\s*(.*?)\s<#si', $html, $categories_all, PREG_SET_ORDER);                
+        print_r($categories_all);        
     }
     
     function parse_list($html)
     {
+        // demarcate the beginning and end of portion we want to work with
         $html_start = '<ul>';
         $html_start_pos = strpos($html, $html_start) + strlen($html_start);
         $html_end = '</ul>';
@@ -47,6 +57,10 @@
     
     function parse_one($id)
     {
+    
+        // this is for matching the tags, not quite right yet.
+        preg_match_all('#category=(\d*?)">#si', $html, $categories_all, PREG_SET_ORDER);
+    
         // go to url specific to an activity
         $url = 'http://usodb.fas.harvard.edu/public/index.cgi?rm=details&id=' . $id;
         // grab the html and reduce it to relevant portions
