@@ -1,5 +1,5 @@
 <div>    
-    Activity Name: <?print_r($results['name']) ;?> <br/>
+    Activity Name: <br/>
     Description: <br/>
     Overall Rating: <br/>
     Tags: <br/>

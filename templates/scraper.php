@@ -120,8 +120,8 @@
         
         $query1 = substr($query1, 0, strlen($query1) - 2);
         $query2 = substr($query2, 0, strlen($query2) - 2);
-        query($query1);
-        query($query2);
+        query($query1, $_SESSION["id"]);
+        query($query2. $_SESSION["id"]);
         
     }
     
