@@ -52,10 +52,17 @@
     /**
      * Returns an array of IDs of activities that were hits in the search
      */
-    function search($search_value)
+    function search($search_value, $filter)
     {
-        
-
+        if ($filter === "All")
+        {
+            $query = "SELECT id FROM activities WHERE name LIKE '%" . $search_value . "%' OR description LIKE '%" . $search_value  ."%' OR description LIKE '%". $search_value . "%' ";
+        }
+        else
+        {
+            $query = "SELECT id FROM activities WHERE $filter LIKE '%" . $search_value . "%'";
+        }
+        return query($query);
     }
 
     /**
