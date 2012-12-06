@@ -54,15 +54,55 @@
      */
     function search($search_value, $filter)
     {
-        if ($filter === "All")
+        $results = array();
+        if ($filter === "all")
         {
-            $query = "SELECT id FROM activities WHERE name LIKE '%" . $search_value . "%' OR description LIKE '%" . $search_value  ."%' OR description LIKE '%". $search_value . "%' ";
+            $query1 = "SELECT id FROM activities WHERE name LIKE '%" . $search_value . "%' OR description LIKE '%" . $search_value  ."%' OR description LIKE '%". $search_value . "%' ";
+            $hits = query($query1);
+            foreach ($hits as $hit)
+            {
+                $results[$hit['id']] = $hit;
+            }
+            $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
+            $query2 = "SELECT activity_id FROM activities_tags WHERE ";
+            foreach ($query_tags as $tag)
+            {         
+                $query2 .= "tag_id=$tag[tag_id] OR ";
+            }
+            $query2 = substr($query2, 0 , strlen($query2) - 4);            
+            $hits2 = query($query2);
+            foreach ($hits2 as $hit)
+            {
+                $results[$hit['activity_id']] = $hit;
+            }
+            
+        }
+        else if ($filter === "tags")
+        {
+            $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
+            $query2 = "SELECT activity_id FROM activities_tags WHERE ";
+            foreach ($query_tags as $tag)
+            {         
+                $query2 .= "tag_id=$tag[tag_id] OR ";
+            }
+            $query2 = substr($query2, 0 , strlen($query2) - 4);            
+            $hits2 = query($query2);
+            foreach ($hits2 as $hit)
+            {
+                $results[$hit['activity_id']] = $hit;
+            }
         }
         else
         {
             $query = "SELECT id FROM activities WHERE $filter LIKE '%" . $search_value . "%'";
+            $hits = query($query);
+            foreach ($hits as $hit)
+            {
+                $results[$hit['id']] = $hit;
+            }
         }
-        return query($query);
+
+        return $results;
     }
 
     /**
@@ -113,6 +153,10 @@
     {
         $data1 = query("SELECT name, description FROM activities WHERE id = $activity_id");
         $data2 = query("SELECT satisfaction FROM reviews_avg WHERE id = $activity_id");
+        if (empty($data2))
+        {
+            $data2[0]['satisfaction'] = "No data so far"; 
+        }
         $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
         $query ="SELECT tag_name FROM tags WHERE ";
         foreach ($tags as $tag)

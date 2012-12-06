@@ -5,10 +5,10 @@
         </div>
         <div class="control-group">
             <select name="filter">
-            <option value="All">all</option>
-            <option value="Name">name</option>
-            <option value="Description">description</option>
-            <option value="Tags">tags</option>
+            <option value="all">All</option>
+            <option value="name">Name</option>
+            <option value="description">Description</option>
+            <option value="tags">Tags</option>
             </select>
         </div>
         <div class="control-group">

@@ -24,7 +24,7 @@
         $results = array();
         foreach ($hits as $index => $id)
         {        
-            $results[$index] = lookup_quick($id['id']);
+            $results[$index] = lookup_quick($index);
         }
         render("search_result.php", ["title" => "Search Results", "results" => $results]);
 
