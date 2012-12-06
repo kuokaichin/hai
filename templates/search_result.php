@@ -1,8 +1,8 @@
 <form action="search.php" method="post">
     <fieldset>
-        <div class="control-group">
+        <sdiv class="control-group">
             <input autofocus name="search_value" placeholder="name, category...etc" type="text"/>
-        </div>
+        </div> 
         <div class="control-group">
             <select name="filter">
             <option value="All">All</option>
