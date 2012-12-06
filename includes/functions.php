@@ -136,7 +136,38 @@
         ];
         
     }
-    
+    function lookup_quick($activity_id)
+    {
+        $data1 = query("SELECT name, description FROM activities WHERE id = $activity_id");
+        $data2 = query("SELECT satisfaction FROM reviews_avg WHERE id = $activity_id");
+        $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
+        $query ="SELECT tag_name FROM tags WHERE ";
+        foreach ($tags as $tag)
+        {
+            
+            $query .= 'tag_id=' . $tag['tag_id'] . ' OR ';
+        }
+        $query = substr($query, 0, strlen($query) - 4);
+        $tags_names = query($query);
+        $data3 = "";
+        foreach ($tags_names as $name)
+        {
+            $data3 .= $name['tag_name'] . ', ';
+        }
+        $data3 = substr($data3, 0 , strlen($data3) - 2);
+        
+        
+        // return activity's info as an associative array
+        
+        return [
+            'name' => $data1[0]['name'],
+            'description' => $data1[0]['description'],
+            'satisfaction' => $data2[0]['satisfaction'],
+            'tags' => $data3
+        ];
+        
+        
+    }
     
 
     /**

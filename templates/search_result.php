@@ -1,11 +1,11 @@
 <div>    
-    Activity Name: <?print_r($results['name']) ;?> <br/>
-    Description: <br/>
-    Overall Rating: <br/>
+    Activity Name: <?echo $name?> <br/>
+    Description: <?echo $description?> <br/>
+    Overall Rating: <?echo $satisfaction?> <br/>
     <br/>
 </div>
 <div>   
-    Tags: <br/>
+    Tags: <?echo $tags?> <br/>
 </div>
-    <a href="activity.php?id=<?echo $results['id']?>">Details</a>
+    <a href="activity.php?id=<?echo $id?>">Details</a>
 </form>

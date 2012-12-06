@@ -17,12 +17,14 @@
         */
             // get array of ID numbers of applicable orgs
             // $results = lookup_quick($_POST["search_value"]);
-            $results = array('name' => 'Piano Society', 'id' => 1);
-            render("/search_result.php", ["title" => "Search Result", "results" => $results]);
+        $results = lookup_quick(4);
+        render("search_result.php", ["title" => $results['name'], "id" => 4, "name" => $results['name'], "description" => $results['description'], "satisfaction" => $results['satisfaction'], "tags" => $results['tags']]);
     }
     else
     {
     // else render form
-    render("search_form.php", ["title" => "Activities Search"]);
+        $results = lookup_quick(4);
+        render("search_result.php", ["title" => $results['name'], "id" => 4, "name" => $results['name'], "description" => $results['description'], "satisfaction" => $results['satisfaction'], "tags" => $results['tags']]);
+
     }
 ?>
