@@ -1,21 +1,21 @@
 <div>    
-    Activity Name: <?echo $name;?> <br/>
-    Description: <?echo $description;?><br/>
-    Email: <?echo $email;?><br/>
-    Website: <?echo $website;?><br/>
-    Size: <?echo $size;?><br/>
-    Members: <?echo $members;?><br/>
+    Activity Name: <?echo $results['name'];?> <br/>
+    Description: <?echo $results['description'];?><br/>
+    Email: <?echo $results['email'];?><br/>
+    Website: <?echo $results['website'];?><br/>
+    Size: <?echo $results['size'];?><br/>
+    Members: <?echo $results['members'];?><br/>
 </div>
 <div>
-    Overall Satisfaction: <?echo $satisfaction;?><br/>
-    Time Commitment: <?echo $time;?><br/>
-    Organization & Professionalism: <?echo $organization;?><br/>    
-    Selectiveness: <?echo $selectiveness;?><br/>
-    Friendliness: <?echo $friendliness;?><br/>    
+    Overall Satisfaction: <?echo $results['satisfaction'];?><br/>
+    Time Commitment: <?echo $results['time'];?><br/>
+    Organization & Professionalism: <?echo $results['organization'];?><br/>    
+    Selectiveness: <?echo $results['selectiveness'];?><br/>
+    Friendliness: <?echo $results['friendliness'];?><br/>    
 </div>
 <div>
     Read Comments or I guess have top comments with a link to more comments <br/>
 </div>
 <div>
-    Tags: <?echo $tags;?><br/>
+    Tags: <?echo $results['tags'];?><br/>
 </div>

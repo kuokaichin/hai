@@ -17,14 +17,26 @@
         */
             // get array of ID numbers of applicable orgs
             // $results = lookup_quick($_POST["search_value"]);
-        $results = lookup_quick(4);
-        render("search_result.php", ["title" => $results['name'], "id" => 4, "name" => $results['name'], "description" => $results['description'], "satisfaction" => $results['satisfaction'], "tags" => $results['tags']]);
+        $hits = array (0 => 4, 1 => 11, 2=> 13);
+        $results = array();
+        foreach ($hits as $index => $id)
+        {
+            print_r("index" + $index);
+            print_r("id" +$id);        
+            $results[$index] = lookup_quick($id);
+        }
+        print_r($results);
+        // render("search_result.php", ["title" => "Search Results", "results" => $results]);
     }
     else
     {
-    // else render form
-        $results = lookup_quick(4);
-        render("search_result.php", ["title" => $results['name'], "id" => 4, "name" => $results['name'], "description" => $results['description'], "satisfaction" => $results['satisfaction'], "tags" => $results['tags']]);
-
+        // else render form
+        $hits = array (0 => 4, 1 => 11);
+        $results = array();
+        foreach ($hits as $index => $id)
+        {        
+            $results[$index] = lookup_quick($id);
+        }
+        render("search_result.php", ["title" => "Search Results", "results" => $results]);
     }
 ?>

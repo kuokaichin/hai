@@ -161,6 +161,7 @@
         
         return [
             'name' => $data1[0]['name'],
+            'id' => $activity_id,
             'description' => $data1[0]['description'],
             'satisfaction' => $data2[0]['satisfaction'],
             'tags' => $data3

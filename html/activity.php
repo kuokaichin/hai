@@ -17,11 +17,11 @@
         */
         // $results = lookup_detailed($_POST["search_value"]);
         $results = lookup_detailed($_GET["id"]);
-        render("activity_view.php", ["title" => $results['name'], "name" => $results['name'], "description" => $results['description'], "email" => $results['email'], "website" => $results['website'], "size" => $results['size'], "members" => $results['members'], "satisfaction" => $results['satisfaction'], "time" => $results['time'], "organization" => $results['organization'],  "selectiveness" => $results['selectiveness'], "friendliness" => $results['friendliness'], "tags" => $results['tags']]);
+        render("activity_view.php", ["title" => $results['name'], "results" => $results]);
     }
     else
     {
     // else render form
-    render("search_result.php", ["title" => $results['name'], "name" => $results['name'], "description" => $results['description'], "email" => $results['email'], "website" => $results['website'], "size" => $results['size'], "members" => $results['members'], "satisfaction" => $results['satisfaction'], "time" => $results['time'], "organization" => $results['organization'],  "selectiveness" => $results['selectiveness'], "friendliness" => $results['friendliness'], "tags" => $results['tags']]);    
+        render("activity_view.php", ["title" => $results['name'], "results" => $results]);
     }
 ?>
