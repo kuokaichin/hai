@@ -17,11 +17,11 @@
         */
         // $results = lookup_detailed($_POST["search_value"]);
         $results = lookup_detailed($_GET["id"]);
-        render("activity_view.php", ["title" => $results['name'], "results" => $results]);
+        render("activity_view.php", array("title" => $results['name'], "results" => $results));
     }
     else
     {
     // else render form
-        render("activity_view.php", ["title" => $results['name'], "results" => $results]);
+        render("activity_view.php", array("title" => $results['name'], "results" => $results));
     }
 ?>

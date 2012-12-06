@@ -1,14 +1,14 @@
 <form action="search.php" method="post">
     <fieldset>
-        <sdiv class="control-group">
-            <input autofocus name="search_value" placeholder="name, category...etc" type="text"/>
-        </div> 
+        <div class="control-group">
+            <input autofocus name="search_value" placeholder="name, category...etc" type="text" value="<?=$_POST['search_value'] ?>"/>
+        </div>
         <div class="control-group">
             <select name="filter">
-            <option value="All">All</option>
-            <option value="Name">Name</option>
-            <option value="Description">Description</option>
-            <option value="Tags">Tags</option>
+            <option value="all">All</option>
+            <option value="name">Name</option>
+            <option value="description">Description</option>
+            <option value="tags">Tags</option>
             </select>
         </div>
         <div class="control-group">
@@ -16,6 +16,7 @@
         </div>
     </fieldset>
 </form>
+
 <?
     foreach($results as $result)
     {
