@@ -16,7 +16,7 @@
      */
     function apologize($message)
     {
-        render("apology.php", ["message" => $message]);
+        render("apology.php", array("message" => $message));
         exit;
     }
 
@@ -130,7 +130,7 @@
         
         
         // return activities' info as an associative array        
-        return [
+        return array(
             'name' => $data1[0]['name'],
             'description' => $data1[0]['description'],
             'email' => $data1[0]['email'],
@@ -143,7 +143,7 @@
             'selectiveness' => $data2[0]['selectiveness'],
             'friendliness' => $data2[0]['friendliness'],
             'tags' => $data3
-        ];   
+        );   
     }
     
     /**
@@ -176,13 +176,13 @@
         
         // return activity's info as an associative array
         
-        return [
+        return array(
             'name' => $data1[0]['name'],
             'id' => $activity_id,
             'description' => $data1[0]['description'],
             'satisfaction' => $data2[0]['satisfaction'],
             'tags' => $data3
-        ];
+        );
         
         
     }
@@ -225,7 +225,8 @@
         if ($statement === false)
         {
             // trigger (big, orange) error
-            trigger_error($handle->errorInfo()[2], E_USER_ERROR);
+            $errorInfo = $handle->errorInfo();
+            trigger_error($errorInfo[2], E_USER_ERROR);
             exit;
         }
 
@@ -283,7 +284,7 @@
     /**
      * Renders template, passing in values.
      */
-    function render($template, $values = [])
+    function render($template, $values = array())
     {
         // if template exists, render it
         if (file_exists("../templates/$template"))

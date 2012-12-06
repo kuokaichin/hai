@@ -26,12 +26,12 @@
         {        
             $results[$index] = lookup_quick($index);
         }
-        render("search_result.php", ["title" => "Search Results", "results" => $results]);
+        render("search_result.php", array("title" => "Search Results", "results" => $results));
 
     }
     else
     {
         // else render form
-        render("search_form.php", ["title" => "Search"]);
+        render("search_form.php", array("title" => "Search"));
     }
 ?>
