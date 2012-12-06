@@ -5,10 +5,12 @@
         </div>
         <div class="control-group">
             <select name="filter">
-            <option value="all">All</option>
-            <option value="name">Name</option>
-            <option value="description">Description</option>
-            <option value="tags">Tags</option>
+            <option selected="selected" value="audi">Audi</option>
+            <option selected="selected" value="<?=$_POST['filter'] ?>"/><?=$_POST['filter'] ?></option>
+            <option value="all">all</option>
+            <option value="name">name</option>
+            <option value="description">description</option>
+            <option value="tags">tags</option>
             </select>
         </div>
         <div class="control-group">
@@ -16,6 +18,12 @@
         </div>
     </fieldset>
 </form>
+<?
+    if(empty($results))
+    {
+        echo "No Activities Found";
+    }
+?>
 
 <?
     foreach($results as $result)
