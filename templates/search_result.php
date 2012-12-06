@@ -5,7 +5,6 @@
         </div>
         <div class="control-group">
             <select name="filter">
-            <option selected="selected" value="audi">Audi</option>
             <option selected="selected" value="<?=$_POST['filter'] ?>"/><?=$_POST['filter'] ?></option>
             <option value="all">all</option>
             <option value="name">name</option>
