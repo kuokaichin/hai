@@ -17,12 +17,12 @@
         */
             // $results = lookup_detailed($_POST["search_value"]);
         print_r(lookup_detailed(4));
-        // render("/activity_view.php", ["title" => "Search Result", "results" => $results]);
+        //render("/activity_view.php", ["title" => "Search Result", "results" => $results]);
     }
     else
     {
     // else render form
-    // render("activity_view.php", ["title" => "Activity Name Goes HERE"]);
-    print_r(lookup_detailed(4));
+    $results = lookup_detailed(4);
+    render("activity_view.php", ["title" => $results['name'], "name" => $results['name'], "description" => $results['description'], "email" => $results['email'], "website" => $results['website'], "size" => $results['size'], "members" => $results['members'], "satisfaction" => $results['satisfaction'], "time" => $results['time'], "organization" => $results['organization'],  "selectiveness" => $results['selectiveness'], "friendliness" => $results['friendliness'], "tags" => $results['tags']]);    
     }
 ?>

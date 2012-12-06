@@ -100,26 +100,41 @@
     function lookup_detailed($activity_id)
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
-        return $data1;
+        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness FROM reviews_avg WHERE id = $activity_id");
+        $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
+        $query ="SELECT tag_name FROM tags WHERE ";
+        foreach ($tags as $tag)
+        {
+            
+            $query .= 'tag_id=' . $tag['tag_id'] . ' OR ';
+        }
+        $query = substr($query, 0, strlen($query) - 4);
+        $tags_names = query($query);
+        $data3 = "";
+        foreach ($tags_names as $name)
+        {
+            $data3 .= $name['tag_name'] . ', ';
+        }
+        $data3 = substr($data3, 0 , strlen($data3) - 2);
         
-
-        /*
+        
         // return activity's info as an associative array
+        
         return [
-            'name' => $data1['name'],
-            'description' => $data1['description'],
-            'email' => $data1['email'],
-            'website' => $data1['website'],
-            'size' => $data1['website'],
-            'members' => $data1['members'],
-            'satisfaction' => $data2['satisfaction'],
-            'time' => $data2['time'],
-            'organization' => $data2['organization'],
-            'selectiveness' => $data2['selectiveness'],
-            'friendliness' => $data2['friendliness'],
-            'tags' => $data3['tags']
+            'name' => $data1[0]['name'],
+            'description' => $data1[0]['description'],
+            'email' => $data1[0]['email'],
+            'website' => $data1[0]['website'],
+            'size' => $data1[0]['website'],
+            'members' => $data1[0]['members'],
+            'satisfaction' => $data2[0]['satisfaction'],
+            'time' => $data2[0]['time'],
+            'organization' => $data2[0]['organization'],
+            'selectiveness' => $data2[0]['selectiveness'],
+            'friendliness' => $data2[0]['friendliness'],
+            'tags' => $data3
         ];
-        */
+        
     }
     
     

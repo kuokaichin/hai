@@ -8,7 +8,7 @@
 </div>
 <div>
     Overall Satisfaction: <?echo $satisfaction;?><br/>
-    Time Commitment: <?echo $commitment;?><br/>
+    Time Commitment: <?echo $time;?><br/>
     Organization & Professionalism: <?echo $organization;?><br/>    
     Selectiveness: <?echo $selectiveness;?><br/>
     Friendliness: <?echo $friendliness;?><br/>    
