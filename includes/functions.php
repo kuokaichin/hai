@@ -50,53 +50,17 @@
     }
 
     /**
-     * Returns a stock by symbol (case-insensitively) else false if not found.
+     * Returns an array of IDs of activities that were hits in the search
      */
-    function lookup($search_value)
+    function search($search_value)
     {
-        // reject symbols that start with ^
-        if (preg_match("/^\^/", $search_value))
-        {
-            return false;
-        }
+        
 
-        // reject symbols that contain commas
-        if (preg_match("/,/", $search_value))
-        {
-            return false;
-        }
-
-        // open connection to Yahoo
-        $handle = @fopen("http://download.finance.yahoo.com/d/quotes.csv?f=snl1&s=$symbol", "r");
-        if ($handle === false)
-        {
-            return false;
-        }
-
-        // download first line of CSV file
-        $data = fgetcsv($handle);
-        if ($data === false || count($data) == 1)
-        {
-            return false;
-        }
-
-        // close connection to Yahoo
-        fclose($handle);
-
-        // ensure symbol was found
-        if ($data[2] === "0.00")
-        {
-            return false;
-        }
-
-        // return stock as an associative array
-        return [
-            "symbol" => $data[0],
-            "name" => $data[1],
-            "price" => $data[2],
-        ];
     }
-    
+
+    /**
+     * Returns an array of detailed results given a single ID for one activity
+     */    
     function lookup_detailed($activity_id)
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
@@ -118,8 +82,7 @@
         $data3 = substr($data3, 0 , strlen($data3) - 2);
         
         
-        // return activity's info as an associative array
-        
+        // return activities' info as an associative array        
         return [
             'name' => $data1[0]['name'],
             'description' => $data1[0]['description'],
@@ -133,9 +96,12 @@
             'selectiveness' => $data2[0]['selectiveness'],
             'friendliness' => $data2[0]['friendliness'],
             'tags' => $data3
-        ];
-        
+        ];   
     }
+    
+    /**
+     * Returns an array of quick results given an array of IDs representing search hits
+     */    
     function lookup_quick($activity_id)
     {
         $data1 = query("SELECT name, description FROM activities WHERE id = $activity_id");
