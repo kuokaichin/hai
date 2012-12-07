@@ -1,6 +1,6 @@
 <form action="search.php" method="post">
     <fieldset>
-        <div class="input-append">
+        <div class="control-group">
             <input autofocus name="search_value" placeholder="name, category...etc" type="text"/>
         </div>
         <div class="control-group">
@@ -16,4 +16,3 @@
         </div>
     </fieldset>
 </form>
-

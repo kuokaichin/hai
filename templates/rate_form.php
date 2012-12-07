@@ -4,24 +4,37 @@
 <form action="rate.php" method="post">
     <fieldset>
     <legend>Please enter your ratings:</legend>
+    <input id="name" type="hidden" value=<?$results['name']?> />
             <script type="text/javascript">
-                function showValue(newValue, id)
+                window.onload = updatingsliders;
+                function updatingsliders(){
+                    var categories = ["satisfaction", "time", "organization", "selectiveness", "friendliness" , "member_officer_ratio"];
+                    for (var i in categories)
+                    {
+                        var input = document.getElementById(categories[i]+"_input");
+                        var span = document.getElementById(categories[i]);
+                        console.log(input);
+                        console.log(span);
+                        input.onchange= (function(input, span) { return function() {console.log(input, span); showValue(input.value,span) }})(input, span);
+                    }
+                }
+                function showValue(newValue, span)
                 {
-                    console.log(id);
-	                document.getElementById(id).innerHTML=newValue;
+                    console.log(span);
+	                span.innerHTML=newValue;
                 }
             </script>
 
 <?
-    $categories = array("satisfaction" => array( 'name' => "Overall Satisfaction ", 'max' => 5), "time" => array( 'name' => "Time Commitment (hrs/wk)", 'max' => 20), "organization" => array( 'name' => "Organization and Professionalism", 'max' => 5), "selectiveness" => array( 'name' => "Selectivness", 'max' => 5), "friendliness" => array( 'name' => "Friendliness", 'max' => 5), "member_officer_ratio" => array( 'name' => "Member Officer Ratio", 'max' => 100));
+    $categories = array("satisfaction" => array( 'name' => "Overall Satisfaction ", 'max' => 5), "time" => array( 'name' => "Time Commitment (hrs/wk)", 'max' => 20), "organization" => array( 'name' => "Organization and Professionalism", 'max' => 5), "selectiveness" => array( 'name' => "Selectivness", 'max' => 5), "friendliness" => array( 'name' => "Friendliness", 'max' => 5), "member_officer_ratio" => array( 'name' => "Member:Officer Ratio", 'max' => 100));
     foreach ($categories as $cat => $array)
     {
     echo '<div class="control-group">
                 <label>',
                 $array['name'],'</label>
-                <input type="range" min="1" max="', $array['max'], '" value="1" step="1" onchange="showValue(this.value,', $cat,')" />
+                <input id="',$cat.'_input', '" type="range" min="1" max="', $array['max'], '" value="1" step="1" />
                 <span id="', $cat, '">1</span>
-            </div>';
+            </div>', "\n";
     }
 ?>
         <div class="control-group">

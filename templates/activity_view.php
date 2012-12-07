@@ -1,4 +1,5 @@
 <h2><?echo $results['name'];?></h2>
+<legend>Basic Information</legend>
 <table class="table table-condensed">    
     <tr>
         <td>Description</td>
@@ -20,14 +21,32 @@
         <td>Members</td>
         <td><?echo $results['members'];?></td>
 </table>
-<div>
-    Overall Satisfaction: <?echo $results['satisfaction'];?><br/>
-    Time Commitment: <?echo $results['time'];?><br/>
-    Organization & Professionalism: <?echo $results['organization'];?><br/>    
-    Selectiveness: <?echo $results['selectiveness'];?><br/>
-    Friendliness: <?echo $results['friendliness'];?><br/>
-    Member to Officer Ratio: <?echo $results['m_o_ratio'];?><br/>    
-</div>
+<legend>Average Ratings</legend>
+<table class="table table-condensed">
+    <tr>
+        <td>Overall Satisfaction</td>
+        <td><?echo $results['satisfaction'];?></td>
+    </tr>
+    <tr>
+        <td>Time Commitment</td>
+        <td><?echo $results['time'];?></td>
+    </tr>
+    <tr>
+        <td>Organization & Professionalism</td>
+        <td><?echo $results['organization'];?></td>
+    </tr>
+    <tr>  
+        <td>Selectiveness</td>
+        <td><?echo $results['selectiveness'];?></td>
+    </tr>
+    <tr>
+        <td>Friendliness</td>
+        <td><?echo $results['friendliness'];?></td>
+    </tr>
+    <tr>
+        <td>Member to Officer Ratio</td>
+        <td><?echo $results['m_o_ratio'];?></td>    
+</table>
 <div>
     Read Comments or I guess have top comments with a link to more comments <br/>
 </div>
