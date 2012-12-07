@@ -1,7 +1,14 @@
-<?
+<?php
+    // configuration
+    require("../includes/config.php");
+    
     $time_start = microtime(1);
     $time_prev = $time_start;
-    beginscrape();      
+    beginscrape();
+    echo '<div>
+        Scrape complete!</br>
+        <a href="admin.php">Return to Admin</a>
+    </div>';  
 
     function since($desc) 
     {
@@ -111,9 +118,8 @@
         
         $query1 = substr($query1, 0, strlen($query1) - 2);
         $query2 = substr($query2, 0, strlen($query2) - 2);
-        // probably don't need this eventually
         query($query1);
-        query($query2);
+        // query($query2);
         
     }
     

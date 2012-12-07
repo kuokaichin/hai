@@ -39,7 +39,8 @@
             Tags: ', $result['tags'], '<br/>
         </div>
         <div>
-            <a href="activity.php?id=', $result['id'], '">Details</a><br/><br/>
+            <a href="activity.php?id=', $result['id'], '">Details</a>
+            <a href="rate.php?id=', $result['id'], '">Rate this Activity</a><br/><br/>
         </div>';
     }
 ?>

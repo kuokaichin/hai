@@ -9,18 +9,14 @@
         {
             apologize("Your search cannot be empty.");
         }
+        // weed out injection attacks using search box
         if (preg_match("#/[A-Za-z]+#", $_POST['search_value']))
         {
             apologize("The first character of our search should be alphabetical");
         }
-        /*
-        else if (lookup($_POST["search_value"]) === false)
-        {
-            apologize("No activities found.");
-        }
-        */
-            // get array of ID numbers of applicable orgs
+        // get array of ID numbers of applicable orgs
         $hits = search($_POST["search_value"], $_POST["filter"]);
+        // 
         $results = array();
         foreach ($hits as $index => $id)
         {        

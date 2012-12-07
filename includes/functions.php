@@ -57,7 +57,7 @@
         $results = array();
         if ($filter === "all")
         {
-            $query1 = "SELECT id FROM activities WHERE name LIKE '%" . $search_value . "%' OR description LIKE '%" . $search_value  ."%' OR description LIKE '%". $search_value . "%' ";
+            $query1 = "SELECT id FROM activities WHERE name LIKE '%" . $search_value . "%' OR description LIKE '%" . $search_value  ."%' ";
             $hits = query($query1);
             foreach ($hits as $hit)
             {
@@ -79,6 +79,7 @@
         }
         else if ($filter === "tags")
         {
+        
             $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
             $query2 = "SELECT activity_id FROM activities_tags WHERE ";
             foreach ($query_tags as $tag)
@@ -91,6 +92,7 @@
             {
                 $results[$hit['activity_id']] = $hit;
             }
+        
         }
         else
         {
@@ -111,7 +113,7 @@
     function lookup_detailed($activity_id)
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
-        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness FROM reviews_avg WHERE id = $activity_id");
+        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio FROM reviews_avg WHERE id = $activity_id");
         $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
         $query ="SELECT tag_name FROM tags WHERE ";
         foreach ($tags as $tag)
@@ -135,13 +137,14 @@
             'description' => $data1[0]['description'],
             'email' => $data1[0]['email'],
             'website' => $data1[0]['website'],
-            'size' => $data1[0]['website'],
+            'size' => $data1[0]['size'],
             'members' => $data1[0]['members'],
             'satisfaction' => $data2[0]['satisfaction'],
             'time' => $data2[0]['time'],
             'organization' => $data2[0]['organization'],
             'selectiveness' => $data2[0]['selectiveness'],
             'friendliness' => $data2[0]['friendliness'],
+            'm_o_ratio' => $data2[0]['member_officer_ratio'],
             'tags' => $data3
         );   
     }
