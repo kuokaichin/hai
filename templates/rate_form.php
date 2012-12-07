@@ -1,10 +1,12 @@
+<!--Displays a form for submission of ratings -->
 <div>
     <h2><?echo $results['name']?></h2>
 </div>
-<form action="rate.php" method="post">
+<form action=<?echo '"rate.php?id='. $id. '"'?> method="post">
     <fieldset>
     <legend>Please enter your ratings:</legend>
     <input id="name" type="hidden" value=<?$results['name']?> />
+            <!-- The javascript allows updating of values and value displayed when the bar is moved -->
             <script type="text/javascript">
                 window.onload = updatingsliders;
                 function updatingsliders(){
@@ -32,21 +34,21 @@
     echo '<div class="control-group">
                 <label>',
                 $array['name'],'</label>
-                <input id="',$cat.'_input', '" type="range" min="1" max="', $array['max'], '" value="1" step="1" />
+                <input id="',$cat.'_input', '" name="',$cat.'_input', '" type="range" min="1" max="', $array['max'], '" value="1" step="1" />
                 <span id="', $cat, '">1</span>
             </div>', "\n";
     }
 ?>
         <div class="control-group">
-            <label class="control-label" for="comments">Comments (1000 Character Limit)</label>
+            <label class="control-label" for="comment">Comments (1000 Character Limit)</label>
             <div class="controls">  
-              <textarea class="input-xlarge" id="comments" rows="3" maxlength="1000">I think this activity...</textarea>  
+              <textarea class="input-xlarge" name="comment" rows="3" maxlength="1000">I think this activity...</textarea>  
             </div>  
         </div>
         <div class="control-group">  
             <label class="control-label" for="email">Harvard Email</label>  
             <div class="controls">  
-              <input type="text" class="input-xlarge" id="email" maxlength="50">  
+              <input type="text" class="input-xlarge" name="email" maxlength="50">  
               <p class="help-block">For verification purposes. No emails will come from Nigerian princes and your rating is anonymous!</p>  
             </div>  
           </div>  

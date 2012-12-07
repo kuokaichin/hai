@@ -16,7 +16,7 @@
     }
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        if(empty($_POST['name']))
+        if(empty($_GET['id']))
         {
             apologize("wtf");
         }
@@ -26,17 +26,18 @@
             apologize("Invalid ratings!");
         }
         // verify Harvard email. More with verification and such in the future but currently it's just making sure Harvard is in there.
-        if (preg_match('#.*?@.*harvard.edu#',$_POST['email']))
+        if (!preg_match('#.*?@.*harvard.edu#',$_POST['email']))
         {
             apologize("Please enter a Harvard affiliated email for verification");
         }
-
         // insert into reviews_all
-        //$query = "INSERT INTO reviews_all (satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio, email, comment) VALUES ($_POST['satisfaction_input'], $_POST['time_input'], $_POST['organization_input'], $_POST['selectiveness_input'], $_POST['friendliness_input'], $_POST['member_officer_input'], $_POST['email'], $_POST['comment']) WHERE id=$_POST['id']"
-        
+        if (false === query("INSERT INTO ratings_all (id, satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio, email, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", $_GET['id'], $_POST['satisfaction_input'], $_POST['time_input'], $_POST['organization_input'], $_POST['selectiveness_input'], $_POST['friendliness_input'], $_POST['member_officer_ratio_input'], $_POST['email'], $_POST['comment']))
+        {
+            apologize("Could not enter review into database.");
+        } 
         // update average of this particular ID in reviews_avg
         
-        // render("rate_complete.php", array("title => "Rating complete!"));
+        render("rate_complete.php", array('title' => 'Rating complete!'));
         
     }
     else

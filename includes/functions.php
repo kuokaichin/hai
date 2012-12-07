@@ -113,7 +113,7 @@
     function lookup_detailed($activity_id)
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
-        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio FROM reviews_avg WHERE id = $activity_id");
+        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio FROM ratings_avg WHERE id = $activity_id");
         $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
         $query ="SELECT tag_name FROM tags WHERE ";
         foreach ($tags as $tag)
@@ -155,7 +155,7 @@
     function lookup_quick($activity_id)
     {
         $data1 = query("SELECT name, description FROM activities WHERE id = $activity_id");
-        $data2 = query("SELECT satisfaction FROM reviews_avg WHERE id = $activity_id");
+        $data2 = query("SELECT satisfaction FROM ratings_avg WHERE id = $activity_id");
         if (empty($data2))
         {
             $data2[0]['satisfaction'] = "No data so far"; 
