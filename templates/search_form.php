@@ -1,4 +1,4 @@
-<form action="search.php" method="post">
+<form action="search.php" method="get">
     <fieldset>
         <div class="control-group">
             <input autofocus name="search_value" placeholder="name, category...etc" type="text"/>

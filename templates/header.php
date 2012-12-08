@@ -25,7 +25,7 @@
         <div class="container-fluid">
 
             <div id="top">
-                <a href="/"><img alt="Harvard Activities Index" src="img/nyancat.gif"/></a>
+                <a href="index.php"><img alt="Harvard Activities Index" src="img/nyancat.gif"/></a>
             </div>
 
             <div id="middle">

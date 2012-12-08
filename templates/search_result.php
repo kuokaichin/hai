@@ -1,11 +1,11 @@
-<form action="search.php" method="post">
+<form action="search.php" method="get">
     <fieldset>
         <div class="control-group">
-            <input autofocus name="search_value" placeholder="name, category...etc" type="text" value="<?=$_POST['search_value'] ?>"/>
+            <input autofocus name="search_value" placeholder="name, category...etc" type="text" value="<?=$_GET['search_value'] ?>"/>
         </div>
         <div class="control-group">
             <select name="filter">
-            <option selected="selected" value="<?=$_POST['filter'] ?>"/><?=$_POST['filter'] ?></option>
+            <option selected="selected" value="<?=$_GET['filter'] ?>"/><?=$_GET['filter'] ?></option>
             <option value="all">all</option>
             <option value="name">name</option>
             <option value="description">description</option>
