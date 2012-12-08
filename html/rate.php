@@ -31,10 +31,11 @@
             apologize("Please enter a Harvard affiliated email for verification");
         }
         // check that this email hasn't rated this activity before
-        if(true === query("SELECT id FROM ratings_all WHERE id=? AND email=?", $_GET['id'], $_POST['email']))
+        $old_ratings = query("SELECT id FROM ratings_all WHERE id=? AND email=?", $_GET['id'], $_POST['email']);
+        if(!empty($old_ratings))
         {
             apologize("You have already rated this activity!");
-        }        
+        }
         
         // insert into reviews_all
         if (false === query("INSERT INTO ratings_all (id, satisfaction, time, organization, selectiveness, friendliness, learning_impact, email, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", $_GET['id'], $_POST['satisfaction_input'], $_POST['time_input'], $_POST['organization_input'], $_POST['selectiveness_input'], $_POST['friendliness_input'], $_POST['learning_impact_input'], $_POST['email'], $_POST['comment']))
@@ -43,7 +44,7 @@
         } 
         // update average of this particular ID in reviews_avg
         
-        render("rate_complete.php", array('title' => 'Rating complete!'));
+        // render("rate_complete.php", array('title' => 'Rating complete!'));
         
     }
     else
