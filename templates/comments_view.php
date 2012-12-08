@@ -7,12 +7,13 @@
             var upvotes = document.getElementById("number_"+i);
             console.log(button);
             console.log(upvotes);
-            button.onClick=(function(upvotes, button) { return function() {showValue(button.value,upvotes) }})(upvotes, button);
+            button.onclick=(function(button, upvotes) { return function() {showValue(button,upvotes) }})(button, upvotes);
         }
     }
-    function showValue(newValue, upvotes)
+    function showValue(button, upvotes)
     {
-        upvotes.innerHTML=newValue;
+        upvotes.innerHTML=button.value;
+        button.disabled=true;
     }
 </script>
 <div>
@@ -33,9 +34,7 @@
             <tr>
                 <td><span id="number_',$index,'">', $comment['upvotes'], '</span></td>
                 <td>
-                    <form method="post">
                     <input id="button_', $index,'" value="', $comment['upvotes']+1,'" type="image" src="img/arrow-up.png">
-                    </form>
                 </td>
                 <td>', $comment['comment'], '</td>
             </tr></br>';
