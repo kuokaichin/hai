@@ -17,7 +17,7 @@
                 <td>', $comment['upvotes'], '</td>
                 <td>
                     <form method="post" action="/cgi-bin/myscript.cgi">
-                    <input type="submit" src="img/arrow-up.png" 
+                    <input type="image" src="img/arrow-up.png" 
                        onclick="this.disabled=true;">
                     </form>
                 </td>
