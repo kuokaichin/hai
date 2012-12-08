@@ -21,7 +21,7 @@
             apologize("wtf");
         }
         // verify completion of form
-        if (empty($_POST['satisfaction_input']) || empty($_POST['time_input']) || empty($_POST['organization_input']) || empty($_POST['selectiveness_input']) || empty($_POST['friendliness_input']) || empty($_POST['member_officer_ratio_input']) || empty($_POST['email']))
+        if (empty($_POST['satisfaction_input']) || empty($_POST['time_input']) || empty($_POST['organization_input']) || empty($_POST['selectiveness_input']) || empty($_POST['friendliness_input']) || empty($_POST['learning_impact_input']) || empty($_POST['email']))
         {
             apologize("Invalid ratings!");
         }
@@ -30,8 +30,14 @@
         {
             apologize("Please enter a Harvard affiliated email for verification");
         }
+        // check that this email hasn't rated this activity before
+        if(true === query("SELECT id FROM ratings_all WHERE id=? AND email=?", $_GET['id'], $_POST['email']))
+        {
+            apologize("You have already rated this activity!");
+        }        
+        
         // insert into reviews_all
-        if (false === query("INSERT INTO ratings_all (id, satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio, email, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", $_GET['id'], $_POST['satisfaction_input'], $_POST['time_input'], $_POST['organization_input'], $_POST['selectiveness_input'], $_POST['friendliness_input'], $_POST['member_officer_ratio_input'], $_POST['email'], $_POST['comment']))
+        if (false === query("INSERT INTO ratings_all (id, satisfaction, time, organization, selectiveness, friendliness, learning_impact, email, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", $_GET['id'], $_POST['satisfaction_input'], $_POST['time_input'], $_POST['organization_input'], $_POST['selectiveness_input'], $_POST['friendliness_input'], $_POST['learning_impact_input'], $_POST['email'], $_POST['comment']))
         {
             apologize("Could not enter review into database.");
         } 

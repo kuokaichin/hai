@@ -44,8 +44,8 @@
         <td><?echo $results['friendliness'];?></td>
     </tr>
     <tr>
-        <td>Member to Officer Ratio</td>
-        <td><?echo $results['m_o_ratio'];?></td>    
+        <td>Learning & Impact</td>
+        <td><?echo $results['learning_impact'];?></td>    
 </table>
 <div>
     Read Comments or I guess have top comments with a link to more comments <br/>

@@ -27,21 +27,17 @@
 <?
     foreach($results as $result)
     {
-        echo '<div>    
-            Activity Name: ' 
+        echo '<table class="table table-condensed">    
+            <tr><td>Activity Name</td><td>' 
             , $result['name']
-             , '<br/>'
-            , 'Description: ' , $result['description'] , '<br/>',
-             'Overall Rating: ', $result['satisfaction'], '<br/>
+             , '</td></tr><br/>'
+            , '<tr><td>Description</td><td>' , $result['description'] , '</td></tr><br/>',
+             '<tr><td>Overall Rating</td><td>', $result['satisfaction'], '</td></tr><br/>
             <br/>
-        </div>
-        <div>   
-            Tags: ', $result['tags'], '<br/>
-        </div>
-        <div>
-            <a href="activity.php?id=', $result['id'], '">Details</a>
-            <a href="rate.php?id=', $result['id'], '">Rate this Activity</a><br/><br/>
-        </div>';
+            <tr><td>Tags</td><td>', $result['tags'], '</td></tr><br/>
+            <tr><td>Options</td><td><a href="activity.php?id=', $result['id'], '">Details</a>
+            <a href="rate.php?id=', $result['id'], '">Rate this Activity</a><br/></td></tr><br/>
+        </table>';
     }
 ?>
 

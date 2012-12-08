@@ -113,7 +113,7 @@
     function lookup_detailed($activity_id)
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
-        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, member_officer_ratio FROM ratings_avg WHERE id = $activity_id");
+        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, learning_impact FROM ratings_avg WHERE id = $activity_id");
         $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
         $query ="SELECT tag_name FROM tags WHERE ";
         foreach ($tags as $tag)
@@ -144,7 +144,7 @@
             'organization' => $data2[0]['organization'],
             'selectiveness' => $data2[0]['selectiveness'],
             'friendliness' => $data2[0]['friendliness'],
-            'm_o_ratio' => $data2[0]['member_officer_ratio'],
+            'learning_impact' => $data2[0]['learning_impact'],
             'tags' => $data3
         );   
     }
