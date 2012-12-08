@@ -42,10 +42,8 @@
         {
             apologize("Could not enter review into database.");
         } 
-        // update average of this particular ID in reviews_avg
-        update_avg($_GET['id']);
         
-        // render("rate_complete.php", array('title' => 'Rating complete!'));
+        render("rate_complete.php", array('title' => 'Rating complete!'));
         
     }
     else
