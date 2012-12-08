@@ -12,7 +12,7 @@
             </select>
         </div>
         <div class="control-group">
-            <button type="search_value" class="btn">Search</button>
+            <button type="search_value" class="btn btn-primary"><i class="icon-white icon-search"></i>Search</button>
         </div>
     </fieldset>
 </form>

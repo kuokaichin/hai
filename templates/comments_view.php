@@ -1,20 +1,20 @@
 <script>
-    window.onload = upvotebuttons;
-    function upvotebuttons(){
-        for (var i = 0; i < <?echo count($comments)?>; i++)
-        {
-            var button = document.getElementById("button_"+i);
-            var upvotes = document.getElementById("number_"+i);
-            console.log(button);
-            console.log(upvotes);
-            button.onclick=(function(button, upvotes) { return function() {showValue(button,upvotes) }})(button, upvotes);
+        window.onload = upvotebuttons;
+        function upvotebuttons(){
+            for (var i = 0; i < <?echo count($comments)?>; i++)
+            {
+                var button = document.getElementById("button_"+i);
+                var upvotes = document.getElementById("number_"+i);
+                console.log(button);
+                console.log(upvotes);
+                button.onclick=(function(button, upvotes) { return function() {showValue(button,upvotes) }})(button, upvotes);
+            }
         }
-    }
-    function showValue(button, upvotes)
-    {
-        upvotes.innerHTML=button.value;
-        button.disabled=true;
-    }
+        function showValue(button, upvotes)
+        {
+            upvotes.innerHTML=button.value;
+            button.disabled=true;
+        }
 </script>
 <div>
 <legend>Comments about the <?echo $results['name'];?></legend>
@@ -34,7 +34,7 @@
             <tr>
                 <td><span id="number_',$index,'">', $comment['upvotes'], '</span></td>
                 <td>
-                    <input id="button_', $index,'" value="', $comment['upvotes']+1,'" type="image" src="img/arrow-up.png">
+                    <button class="btn" id="button_', $index,'" value="', $comment['upvotes']+1,'"><i class="icon-arrow-up"></i></button>
                 </td>
                 <td>', $comment['comment'], '</td>
             </tr></br>';
@@ -45,10 +45,10 @@
     if(empty($comments))
     {
         echo "<div>No Comments So far</div></br>";
-        echo '<div><a href="rate.php?id=', $_GET['id'],'">Rate the ', $results['name'], '</a></div>';
+        echo '<div><a href="rate.php?id=', $_GET['id'],' "class="btn btn-success">Rate ', $results['name'], '</a></div></br>';
     }
 ?>
 </div>
 <div>
-    <a href="activity.php?id=<?echo $_GET['id']?>">Back to Activity Information</a>
+    <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
 </div>

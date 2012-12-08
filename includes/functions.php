@@ -203,7 +203,15 @@
     {
         $comments = query("SELECT comment, upvotes, email FROM ratings_all WHERE id = $activity_id ORDER BY upvotes DESC");
         return $comments;
-    }    
+    }
+    
+    /**
+     * Add tags associated with activity
+     */    
+    function tag($activity_id, $tags)
+    {
+        
+    }
 
     /**
      * Executes SQL statement, possibly with parameters, returning

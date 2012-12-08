@@ -75,6 +75,10 @@
     }
     ?>
 </table>
-</br><a href="comments.php?id=<?echo $_GET['id']?>">Full Comments</a>
-<a href="rate.php?id=<?echo $_GET['id']?>">Rate this Activity</a>
+</br>
+<button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
+<a href="comments.php?id=<?echo $_GET['id']?>" class="btn btn-info">Full Comments</a>
+<a href="rate.php?id=<?echo $_GET['id']?>" class="btn btn-success">Rate this Activity</a>
+<a href="tag.php?id=<?echo $_GET['id']?>" class="btn btn-success">Tag this Activity</a>
+
 
