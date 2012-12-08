@@ -20,6 +20,10 @@
     <tr>
         <td>Members</td>
         <td><?echo $results['members'];?></td>
+        <tr>
+            <td>Tags</td>
+            <td><?echo $results['tags'];?></td>
+        </tr>
 </table>
 <legend>Average Ratings</legend>
 <table class="table table-condensed">
@@ -47,9 +51,8 @@
         <td>Learning & Impact</td>
         <td><?echo $results['learning_impact'];?></td>    
 </table>
-<div>
-    Read Comments or I guess have top comments with a link to more comments <br/>
-</div>
-<div>
-    Tags: <?echo $results['tags'];?><br/>
-</div>
+<legend>Top Comments</legend>
+<table>
+    <tr><td>Read Comments or I guess have top comments with a link to more comments</td></tr>
+</table>
+

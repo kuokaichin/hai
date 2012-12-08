@@ -113,7 +113,7 @@
     function lookup_detailed($activity_id)
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
-        $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, learning_impact FROM ratings_avg WHERE id = $activity_id");
+        $data2 = query("SELECT ROUND(AVG(satisfaction),2), ROUND(AVG(time),2), ROUND(AVG(organization),2), ROUND(AVG(selectiveness),2), ROUND(AVG(friendliness),2), ROUND(AVG(learning_impact),2) FROM ratings_all WHERE id = $activity_id");
         if (empty($data2))
         {
             $data2[0]['satisfaction'] = "No ratings so far";
@@ -148,12 +148,12 @@
             'website' => $data1[0]['website'],
             'size' => $data1[0]['size'],
             'members' => $data1[0]['members'],
-            'satisfaction' => $data2[0]['satisfaction'],
-            'time' => $data2[0]['time'],
-            'organization' => $data2[0]['organization'],
-            'selectiveness' => $data2[0]['selectiveness'],
-            'friendliness' => $data2[0]['friendliness'],
-            'learning_impact' => $data2[0]['learning_impact'],
+            'satisfaction' => $data2[0]['ROUND(AVG(satisfaction),2)'],
+            'time' => $data2[0]['ROUND(AVG(time),2)'],
+            'organization' => $data2[0]['ROUND(AVG(organization),2)'],
+            'selectiveness' => $data2[0]['ROUND(AVG(selectiveness),2)'],
+            'friendliness' => $data2[0]['ROUND(AVG(friendliness),2)'],
+            'learning_impact' => $data2[0]['ROUND(AVG(learning_impact),2)'],
             'tags' => $data3
         );   
     }
@@ -164,7 +164,7 @@
     function lookup_quick($activity_id)
     {
         $data1 = query("SELECT name, description FROM activities WHERE id = $activity_id");
-        $data2 = query("SELECT satisfaction FROM ratings_avg WHERE id = $activity_id");
+        $data2 = query("SELECT ROUND(AVG(satisfaction),2) FROM ratings_all WHERE id = $activity_id");
         if (empty($data2))
         {
             $data2[0]['satisfaction'] = "No ratings so far"; 
@@ -192,7 +192,7 @@
             'name' => $data1[0]['name'],
             'id' => $activity_id,
             'description' => $data1[0]['description'],
-            'satisfaction' => $data2[0]['satisfaction'],
+            'satisfaction' => $data2[0]['ROUND(AVG(satisfaction),2)'],
             'tags' => $data3
         );   
     }
