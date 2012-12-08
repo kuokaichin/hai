@@ -201,7 +201,7 @@
      */
     function get_comments($activity_id)
     {
-        $comments = query("SELECT comment, upvotes FROM ratings_all WHERE id = $activity_id ORDER BY upvotes DESC");
+        $comments = query("SELECT comment, upvotes, email FROM ratings_all WHERE id = $activity_id ORDER BY upvotes DESC");
         return $comments;
     }    
 
