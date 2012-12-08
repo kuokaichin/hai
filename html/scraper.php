@@ -24,7 +24,7 @@
         $html = file_get_contents($url);        
         insert_categories(parse_categories($html));
         since('After calling file_get_contents()');        
-        insert_activities(parse_list($html));
+        // insert_activities(parse_list($html));
     }
     
     function parse_categories($html)
@@ -36,6 +36,10 @@
         
         // pull OSL category and the ID they assign to later add to tag table
         preg_match_all('#value="(\d*?)".*?>\s*(.*?)\s<#si', $html, $categories_all, PREG_SET_ORDER);                
+        foreach ($categories_all as $index => $tag)
+        {
+            $categories_all[$index][2] = substr($tag[2],0,-12);
+        }
         return $categories_all;        
     }
     
@@ -119,7 +123,7 @@
         $query1 = substr($query1, 0, strlen($query1) - 2);
         $query2 = substr($query2, 0, strlen($query2) - 2);
         query($query1);
-        // query($query2);
+        query($query2);
         
     }
     
