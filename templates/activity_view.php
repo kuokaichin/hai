@@ -54,5 +54,6 @@
 <legend>Top Comments</legend>
 <table>
     <tr><td>Read Comments or I guess have top comments with a link to more comments</td></tr>
+    <tr><td><a href="comments.php?id=<?echo $_GET['id']?>">Full Comments</a></td></tr>
 </table>
 

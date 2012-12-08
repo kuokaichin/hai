@@ -196,7 +196,14 @@
             'tags' => $data3
         );   
     }
-    
+    /**
+     * Gets all the comments for the activity identified by a single ID
+     */
+    function get_comments($activity_id)
+    {
+        $comments = query("SELECT comment FROM ratings_all where id = $activity_id");
+        return $comments;
+    }    
 
     /**
      * Executes SQL statement, possibly with parameters, returning

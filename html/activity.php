@@ -14,7 +14,7 @@
     }
     else
     {
-    // else render form
+    // else render return message
         echo '<div>
         The activity you look for is in another castle.</br>
         <a href="seach.php">Search Again</a>
