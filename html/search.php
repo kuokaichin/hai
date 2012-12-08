@@ -17,7 +17,7 @@
                 apologize("The first character of our search should be alphabetical");
             }
             // get array of ID numbers of applicable orgs
-            $hits = search($_GET["search_value"], $_GET["filter"]);
+            $hits = search(mres($_GET["search_value"]), $_GET["filter"]);
             // 
             $results = array();
             foreach ($hits as $index => $id)

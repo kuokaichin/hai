@@ -18,7 +18,7 @@
     {
         if(empty($_GET['id']))
         {
-            apologize("wtf");
+            apologize("What activity is this?!?!s");
         }
         // verify completion of form
         if (empty($_POST['satisfaction_input']) || empty($_POST['time_input']) || empty($_POST['organization_input']) || empty($_POST['selectiveness_input']) || empty($_POST['friendliness_input']) || empty($_POST['learning_impact_input']) || empty($_POST['email']))

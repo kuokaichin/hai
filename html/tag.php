@@ -4,51 +4,53 @@
     // if form was submitted
     if ($_SERVER["REQUEST_METHOD"] == "GET")
     {
-        // check that we are rating a specific activity
+        // check that we are tagging a specific activity
         if (empty($_GET['id']))
         {
             apologize("What activity is this?!?!");
         }
-        // query database for a few details about the activity, most notably name        
-        $results = lookup_quick($_GET['id']);
-        render("rate_form.php", array("title" => "Rate " . $results['name'], "results" => $results, "id" => $_GET['id']));
+        // query database for a few details about the activity, most importantly pre-existing current tags        
+        $results = lookup_detailed($_GET['id']);
+        render("tag_form.php", array("title" => "Tag " . $results['name'], "results" => $results, "id" => $_GET['id']));
 
     }
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if(empty($_GET['id']))
         {
-            apologize("wtf");
+            apologize("What activity is this?");
         }
         // verify completion of form
-        if (empty($_POST['satisfaction_input']) || empty($_POST['time_input']) || empty($_POST['organization_input']) || empty($_POST['selectiveness_input']) || empty($_POST['friendliness_input']) || empty($_POST['learning_impact_input']) || empty($_POST['email']))
+        if (empty($_POST['tag1']) && empty($_POST['tag2']) && empty($_POST['tag3']) && empty($_POST['tag4']) && empty($_POST['tag5']) )
         {
-            apologize("Invalid ratings!");
+            apologize("You didn't enter any tags!");
         }
-        // verify Harvard email. More with verification and such in the future but currently it's just making sure Harvard is in there.
-        if (!preg_match('#.*?@.*harvard.edu#',$_POST['email']))
+        $max_id = query("SELECT tag_id FROM tags WHERE tag_id=(SELECT MAX(tag_id) FROM tags)")[0]['tag_id'];
+        $insert = array();
+        foreach($_POST as $tag)
         {
-            apologize("Please enter a Harvard affiliated email for verification");
+            if(!empty($tag))
+            {
+                $insert[$max_id+1][1] = $max_id + 1;
+                $insert[$max_id+1][2] = $tag;
+                $max_id++;
+            }
         }
-        // check that this email hasn't rated this activity before
-        $old_ratings = query("SELECT id FROM ratings_all WHERE id=? AND email=?", $_GET['id'], $_POST['email']);
-        if(!empty($old_ratings))
-        {
-            apologize("You have already rated this activity!");
-        }
+        insert_categories($insert);
+        // Check that none of the tags already exist.
         
         // insert into reviews_all
-        if (false === query("INSERT INTO ratings_all (id, satisfaction, time, organization, selectiveness, friendliness, learning_impact, email, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", $_GET['id'], $_POST['satisfaction_input'], $_POST['time_input'], $_POST['organization_input'], $_POST['selectiveness_input'], $_POST['friendliness_input'], $_POST['learning_impact_input'], $_POST['email'], $_POST['comment']))
-        {
-            apologize("Could not enter review into database.");
-        } 
+
+
+
+
         
-        render("rate_complete.php", array('title' => 'Rating complete!'));
+        //render("tag_complete.php", array('title' => 'Rating complete!'));
         
     }
     else
     {
         // else render form
-        render("rate_form.php", array("title" => $results['name'], "results" => $results));
+        render("tag_form.php", array("title" => $results['name'], "results" => $results));
     }
 ?>

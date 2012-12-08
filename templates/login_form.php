@@ -7,7 +7,7 @@
             <input name="password" placeholder="Password" type="password"/>
         </div>
         <div class="control-group">
-            <button type="submit" class="btn">Log In</button>
+            <button type="submit" class="btn btn-primary">Log In</button>
         </div>
     </fieldset>
 </form>

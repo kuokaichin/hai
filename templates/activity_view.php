@@ -29,27 +29,27 @@
 <table class="table table-condensed">
     <tr>
         <td>Overall Satisfaction</td>
-        <td><?echo $results['satisfaction'];?></td>
+        <td><?echo $results['satisfaction'];?> / 5.00</td>
     </tr>
     <tr>
         <td>Time Commitment</td>
-        <td><?echo $results['time'];?></td>
+        <td><?echo $results['time'];?> hrs/wk</td>
     </tr>
     <tr>
         <td>Organization & Professionalism</td>
-        <td><?echo $results['organization'];?></td>
+        <td><?echo $results['organization'];?> / 5.00</td>
     </tr>
     <tr>  
         <td>Selectiveness</td>
-        <td><?echo $results['selectiveness'];?></td>
+        <td><?echo $results['selectiveness'];?> / 5.00</td>
     </tr>
     <tr>
         <td>Friendliness</td>
-        <td><?echo $results['friendliness'];?></td>
+        <td><?echo $results['friendliness'];?> / 5.00</td>
     </tr>
     <tr>
         <td>Learning & Impact</td>
-        <td><?echo $results['learning_impact'];?></td>    
+        <td><?echo $results['learning_impact'];?> / 5.00</td>    
 </table>
 <legend>Top Comments</legend>
 <table>
@@ -57,7 +57,7 @@
     $num = count($comments);
     if($num == 0)
     {
-        echo '<tr><td>No Comments So Far!</td></tr>';
+        echo 'No Comments So Far!';
     }
     else if ($num <=3)
     {

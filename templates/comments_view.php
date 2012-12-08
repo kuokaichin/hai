@@ -17,7 +17,7 @@
         }
 </script>
 <div>
-<legend>Comments about the <?echo $results['name'];?></legend>
+<legend>Comments about <?echo $results['name'];?></legend>
 <table class="table table-condensed">
 <?
     if(!empty($comments))
@@ -44,11 +44,9 @@
 <?
     if(empty($comments))
     {
-        echo "<div>No Comments So far</div></br>";
-        echo '<div><a href="rate.php?id=', $_GET['id'],' "class="btn btn-success">Rate ', $results['name'], '</a></div></br>';
+        echo "No Comments So far!<br></br>";
+        echo '<a href="rate.php?id=', $_GET['id'],' "class="btn btn-success">Rate ', $results['name'], '</a></div></br>';
     }
 ?>
-</div>
-<div>
     <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
 </div>

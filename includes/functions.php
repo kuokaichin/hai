@@ -49,6 +49,25 @@
         session_destroy();
     }
 
+    function insert_categories($categories_all)
+    {
+        $query = "INSERT INTO tags (tag_id, tag_name) VALUES ";
+        foreach ($categories_all as $tag)
+        {
+            // html_entity_decode fixes ampersands, apostrophes for table
+            $query .= "('" . mres($tag[1]) . "', '" . mres(html_entity_decode($tag[2], ENT_QUOTES)) . "'), ";
+        }
+        $query = substr($query, 0, strlen($query) - 2);
+        query($query);
+    }
+    
+    // necessary so that apostrophes in org. names don't truncate string, other problems
+    // from http://stackoverflow.com/questions/1162491/alternative-to-mysql-real-escape-string-without-connecting-to-db
+    function mres($value)
+    {
+        return strtr($value, array( "\x00" => '\x00', "\n" => '\n', "\r" => '\r', '\\' => '\\\\', "'" => "\'", '"' => '\"', "\x1a" => '\x1a' ));
+    }
+    
     /**
      * Returns an array of IDs of activities that were hits in the search
      */
