@@ -114,6 +114,15 @@
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
         $data2 = query("SELECT satisfaction, time, organization, selectiveness, friendliness, learning_impact FROM ratings_avg WHERE id = $activity_id");
+        if (empty($data2))
+        {
+            $data2[0]['satisfaction'] = "No ratings so far";
+            $data2[0]['time'] = "No ratings so far";
+            $data2[0]['organization'] = "No ratings so far";
+            $data2[0]['selectiveness'] = "No ratings so far";
+            $data2[0]['friendliness'] = "No ratings so far";
+            $data2[0]['learning_impact'] = "No ratings so far";            
+        }
         $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
         $query ="SELECT tag_name FROM tags WHERE ";
         foreach ($tags as $tag)
@@ -158,7 +167,7 @@
         $data2 = query("SELECT satisfaction FROM ratings_avg WHERE id = $activity_id");
         if (empty($data2))
         {
-            $data2[0]['satisfaction'] = "No data so far"; 
+            $data2[0]['satisfaction'] = "No ratings so far"; 
         }
         $tags = query("SELECT tag_id FROM activities_tags WHERE activity_id = $activity_id");
         $query ="SELECT tag_name FROM tags WHERE ";
@@ -185,9 +194,7 @@
             'description' => $data1[0]['description'],
             'satisfaction' => $data2[0]['satisfaction'],
             'tags' => $data3
-        );
-        
-        
+        );   
     }
     
 
