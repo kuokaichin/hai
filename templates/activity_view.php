@@ -53,10 +53,28 @@
 </table>
 <legend>Top Comments</legend>
 <table>
-    <tr><td>Read Comments or I guess have top comments with a link to more comments</td></tr>
-    <tr>
-        <td><a href="comments.php?id=<?echo $_GET['id']?>">Full Comments</a></td>
-        <td><a href="rate.php?id=<?echo $_GET['id']?>">Rate this Activity</a></td>
-    </tr>
+    <? 
+    $num = count($comments);
+    if($num == 0)
+    {
+        echo '<tr><td>Top Comment</td><td>No Comments So Far!</td></tr>';
+    }
+    else if ($num <=3)
+    {
+        foreach($comments as $comment)
+        {
+            echo '<tr><td>Comment</td><td>',$comment['comment'],'</td></tr>';
+        }
+    }
+    else
+    {
+        for($i = 0; $i < 3; $i++)
+        {
+            echo '<tr><td>Comment</td><td>', $comments[$i]['comment'], '</td></tr>';
+        }
+    }
+    ?>
 </table>
+</br><a href="comments.php?id=<?echo $_GET['id']?>">Full Comments</a>
+<a href="rate.php?id=<?echo $_GET['id']?>">Rate this Activity</a>
 

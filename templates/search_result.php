@@ -35,7 +35,7 @@
              '<tr><td>Overall Rating</td><td>', $result['satisfaction'], '</td></tr><br/>
             <br/>
             <tr><td>Tags</td><td>', $result['tags'], '</td></tr><br/>
-            <tr><td>Options</td><td><a href="activity.php?id=', $result['id'], '">Details</a>
+            <tr><td>Options</td><td><a href="activity.php?id=', $result['id'], '">Details    </a><a href="comments.php?id=', $result['id'], '">Comments    </a>
             <a href="rate.php?id=', $result['id'], '">Rate this Activity</a><br/></td></tr><br/>
         </table>';
     }

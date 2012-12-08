@@ -10,7 +10,8 @@
             apologize("What activity is this?!?!");
         }
         $results = lookup_detailed($_GET["id"]);
-        render("activity_view.php", array("title" => $results['name'], "results" => $results));
+        $comments = get_comments($_GET["id"]);
+        render("activity_view.php", array("title" => $results['name'], "results" => $results, "comments" => $comments));
     }
     else
     {

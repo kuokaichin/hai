@@ -5,9 +5,8 @@
 <form action=<?echo '"rate.php?id='. $id. '"'?> method="post">
     <fieldset>
     <legend>Please enter your ratings:</legend>
-    <input id="name" type="hidden" value=<?$results['name']?> />
             <!-- The javascript allows updating of values and value displayed when the bar is moved -->
-            <script type="text/javascript">
+            <script>
                 window.onload = updatingsliders;
                 function updatingsliders(){
                     var categories = ["satisfaction", "time", "organization", "selectiveness", "friendliness" , "learning_impact"];
@@ -15,14 +14,11 @@
                     {
                         var input = document.getElementById(categories[i]+"_input");
                         var span = document.getElementById(categories[i]);
-                        console.log(input);
-                        console.log(span);
-                        input.onchange= (function(input, span) { return function() {console.log(input, span); showValue(input.value,span) }})(input, span);
+                        input.onchange= (function(input, span) { return function() {showValue(input.value,span) }})(input, span);
                     }
                 }
                 function showValue(newValue, span)
                 {
-                    console.log(span);
 	                span.innerHTML=newValue;
                 }
             </script>
@@ -57,3 +53,4 @@
         </div>
     </fieldset>
 </form>
+<form><input type="btn btn-link" value="back" onClick="history.go(-1);return true;"></FORM>
