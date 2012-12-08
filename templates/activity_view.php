@@ -57,20 +57,22 @@
     $num = count($comments);
     if($num == 0)
     {
-        echo '<tr><td>Top Comment</td><td>No Comments So Far!</td></tr>';
+        echo '<tr><td>No Comments So Far!</td></tr>';
     }
     else if ($num <=3)
     {
+        echo '<tr><td>Upvotes</td><td>Comments</td></tr>';
         foreach($comments as $comment)
         {
-            echo '<tr><td>Comment</td><td>',$comment['comment'],'</td></tr>';
+            echo '<tr><td>',$comment['upvotes'],'</td><td>',$comment['comment'],'</td></tr>';
         }
     }
     else
     {
+        echo '<tr><td>Upvotes</td><td>Comments</td></tr>';
         for($i = 0; $i < 3; $i++)
         {
-            echo '<tr><td>Comment</td><td>', $comments[$i]['comment'], '</td></tr>';
+            echo '<tr><td>',$comments[$i]['upvotes'],'</td><td>',$comments[$i]['comment'],'</td></tr>';
         }
     }
     ?>
