@@ -23,10 +23,12 @@
     <body>
 
         <div class="container-fluid">
-
-            <div id="top">
-                <a href="index.php"><img alt="Harvard Activities Index" src="img/nyancat.gif"/></a>
-            </div>
+            <header class="jumbotron subhead" id="overview">
+                <div class="container">
+                    <h1>Harvard Activities Index</h1>
+                    <p class="lead">Find and rate student activities!</p>
+                </div>
+            </header>
 
             <div id="middle">
 

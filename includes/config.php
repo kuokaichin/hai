@@ -23,7 +23,7 @@
     // require authentication for most pages
     // change this to require changes if you want to be admin and scrape!
     
-    if (!preg_match("{(?:index|login|logout|register|search|activity|rate|comments|tag)\.php$}", $_SERVER["PHP_SELF"]))
+    if (!preg_match("{(?:index|login|logout|register|search|activity|rate|comments|tag|register|upvote)\.php$}", $_SERVER["PHP_SELF"]))
     {
         if (empty($_SESSION["id"]))
         {

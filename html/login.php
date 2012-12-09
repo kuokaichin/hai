@@ -32,7 +32,7 @@
                 $_SESSION["id"] = $row["id"];
  
                 // redirect to portfolio
-                redirect("/admin.php");
+                redirect("admin.php");
             }
         }
  

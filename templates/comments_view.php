@@ -12,18 +12,18 @@
         }
         function showValue(button, upvotes, email)
         {
-            if($.cookie('upvoted_<?echo $_GET['id']?>_'+email) === null){   
-                alert("byaaH");
+            var id = <?echo $_GET['id']?>;
+            if($.cookie('upvoted_'+id+'_'+email) === null){   
                 upvotes.innerHTML=button.value;
                 button.disabled=true;
                 $.ajax({
-                  url: 'upvote.php?id=<?echo $_GET['id']?>',
+                  url: 'upvote.php?id='+id,
                   type: 'POST',
                   data: {
                       email: email
                   }              
                 });
-                $.cookie('upvoted_<?echo $_GET['id']?>_'+email, 1);
+                $.cookie('upvoted_'+id+'_'+email, 1);
             }
         }
 </script>

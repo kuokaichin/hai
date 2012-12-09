@@ -1,0 +1,10 @@
+Documentation for Harvard Activities Index (HAI) by Kuo-Kai Chin '15
+
+Introduction
+	The Harvard Activities Index was inspired by the lack of public avenues for feedback regarding student organizations other than by word of mouth. Instead of having to rely on knowing someone who is familiar with how well run and enjoyable an activity is, it is now possible to use Harvard Activities Index (HAI) to find and read up on different student organizations.
+
+Pages
+	index.php (home) & search.php
+		These are actually the same thing. In intentionally minimalist fashion, there is a single search box with a dropdown below it that allows the selection of filters. Users can enter any keywords associated with the activity and search either all (name, description, and tags) or one of those specifically. The name is simply the official name of the activity and the description is the official description clubs submitted to the OSL. Tags contain both the OSL designated categories, which each received a tag, and user-submitted tags regarding a certain activity. 
+	admin.php, login.php, logout.php, scraper.php*
+		The factual data on student activities such as the name, email, and website was scraped using scraper.php from the website of the Office of Student Life (http://usodb.fas.harvard.edu/public/index.cgi). In order to update these values in my database, it would be possible truncate the Activities table and then just recall the scraper. For the general user, access to scraping password-protected and therefore inaccessible. Obviously, if graders wish to test this, 

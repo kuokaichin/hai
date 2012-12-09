@@ -23,7 +23,6 @@
         $url = "http://usodb.fas.harvard.edu/public/index.cgi";    
         $html = file_get_contents($url);        
         insert_categories(parse_categories($html));
-        since('After calling file_get_contents()');        
         insert_activities(parse_list($html));
     }
     

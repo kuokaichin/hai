@@ -9,6 +9,8 @@
 
 .container
 {
+    color:#FFFFFF;
+    background-color:#CC0000;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -18,6 +20,7 @@
 {
     /* center contents */
     text-align: center;
+
 }
 
 #middle
