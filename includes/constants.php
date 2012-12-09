@@ -4,7 +4,6 @@
      * constants.php
      *
      * Computer Science 50
-     * 
      *
      * Global constants.
      **********************************************************************/

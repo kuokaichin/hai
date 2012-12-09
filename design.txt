@@ -1,0 +1,31 @@
+Design Document for Harvard Activities Index (HAI) by Kuo-Kai Chin '15
+
+Overview
+	This project was implemented using mainly PHP and HTML with a mySQL database but also a smattering of Javascript.
+mySQL Database Tables
+	activity
+		primary OSL information about the activity, this comes from scraper.php and ID is the unique value. 
+	activity_tags
+		facilitates the many-to-many relationship between activities and tags. The pairings are unique, but the individual keys are not, so 1,1 doesn't prevent insertion of 1,2 or 2,1.
+	admin
+		a simple table containing the id of an administrative user, username, and a hashed password. Only used to log in and log out.
+	ratings_all
+		all of the ratings submitted, the id of the activity and the email of the comment submitter form a unique key pair
+	tags
+		id and name of each tag. Both of the values must be unique.
+	
+PHP/HTML/JS Pages
+	index.php (home) & search.php
+		While these pages appear to be pretty simple, the actual search function was somewhat denser. Each search uses GET (so that one can link to results, refresh...etc) to put pass the search_value and filter to the search function. The search function uses mySQL's searching ability to return IDs and filters allow one to specify which columns to search. Once the search completes, the render function is used to pass variables to search_results.php for viewing
+	activity.php
+		Uses the functions previously written to acquire values from the mySQL database for display using tables. Once again, GET is the method of choice since it allows bookmarking. The averages are calculated as part of the mySQL query, not on the PHP side.
+	comments.php & upvote.php
+		Uses pre-written functions to retrieve comments and how many upvotes that these comments had. Also has javascript functionality that disables the button on use while using ajax to POST to upvote.php to change mySQL value for upvote count. The onclick event also creates a cookie for each comment so that refreshing the page will not allow one to spam upvotes for a specific comment. 
+	rate.php
+		The form for rate uses javascript to animate HTML5 sliders, but other than that it is a pretty standard form that POSTS. To prevent repeated submission of the same form, the email used for verification has to be previously unused. This way, one Harvard-affiliated individual cannot keep submitting with the same email. Currently, the verification only uses preg_match to see how the email is formatted but doesn't actually check if the individual is in the Harvard system. More resources can make this happen. 
+	tag.php
+		Allows the addition of up to 5 new tags which will be both added to the tag table and attached to the appropriate activity. Inserts into the tags table and assigns unique IDs only when the suggested tag is actually new. Regardless, as long as the activity-tag relationship is a new one, activities_tags will be updated.
+	register.php*
+		simple registration form, it requires password to be typed twice or else apologies will occur.
+	admin.php, login.php, logout.php, scraper.php*
+		While the general user will never call scraper, this scraper is incredibly important since it acquires the majority of data to be used. This works by parsing the html of the OSL page as a string and using a series of regular expression preg_matches to put data into an array, which is then formatted in a way appropriate for mySQL INSERT queries.

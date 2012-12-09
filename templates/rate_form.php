@@ -54,5 +54,4 @@
         </div>
     </fieldset>
 </form>
-<-- javascript back button -->
 <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
