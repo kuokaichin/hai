@@ -67,7 +67,7 @@
         }               
         $query2 = substr($query2, 0, strlen($query2) - 2);
         query($query2);
-        //render("tag_complete.php", array('title' => 'Rating complete!'));
+        render("tag_complete.php", array('title' => 'Rating complete!'));
         
     }
     else

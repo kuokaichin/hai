@@ -5,15 +5,24 @@
             {
                 var button = document.getElementById("button_"+i);
                 var upvotes = document.getElementById("number_"+i);
-                console.log(button);
-                console.log(upvotes);
-                button.onclick=(function(button, upvotes) { return function() {showValue(button,upvotes) }})(button, upvotes);
+                var email = upvotes.getAttribute("value");
+                button.onclick=(function(button, upvotes, email) { return function() {showValue(button,upvotes, email) }})(button, upvotes, email);
             }
         }
-        function showValue(button, upvotes)
+        function showValue(button, upvotes, email)
         {
-            upvotes.innerHTML=button.value;
-            button.disabled=true;
+            if($.cookie('upvoted') === null){            
+                upvotes.innerHTML=button.value;
+                button.disabled=true;
+                $.ajax({
+                  url: 'upvote.php?id=<?echo $_GET['id']?>',
+                  type: 'POST',
+                  data: {
+                      email: email
+                  }              
+                });
+                $.cookie('upvoted', 'email+<?echo $_GET['id']?>');
+            }
         }
 </script>
 <div>
@@ -29,10 +38,9 @@
     }
     foreach($comments as $index => $comment)
     {
-        // <i class="icon-arrow-up"></i>
         echo '  
             <tr>
-                <td><span id="number_',$index,'">', $comment['upvotes'], '</span></td>
+                <td><span id="number_',$index,'" value="',$comment['email'],'">', $comment['upvotes'], '</span></td>
                 <td>
                     <button class="btn" id="button_', $index,'" value="', $comment['upvotes']+1,'"><i class="icon-arrow-up"></i></button>
                 </td>
@@ -49,4 +57,5 @@
     }
 ?>
     <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
+    <a href="rate.php?id=', $result['id'], '"class="btn btn-success">Rate this Activity</a>
 </div>
