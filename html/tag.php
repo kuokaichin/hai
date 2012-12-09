@@ -26,6 +26,7 @@
             apologize("You didn't enter any tags!");
         }
         $max_id = query("SELECT tag_id FROM tags WHERE tag_id=(SELECT MAX(tag_id) FROM tags)")[0]['tag_id'];
+        echo $max_id;
         $insert = array();
         foreach($_POST as $tag)
         {
@@ -36,15 +37,36 @@
                 $max_id++;
             }
         }
+        
+        print_r($insert);
+        // insert previously unused tags into tags. Duplicates will not be inserted because tag_name has to be unique
+        // known bug: this means that some tag_ids will be unused
         insert_categories($insert);
-        // Check that none of the tags already exist.
         
-        // insert into reviews_all
-
-
-
-
+        // insert into activities_tags
+        $query1 = "SELECT tag_id FROM tags WHERE ";
         
+        foreach($_POST as $tag)
+        {
+            if(!empty($tag))
+            {
+                $query1 .= "tag_name='$tag' OR "; 
+            }
+        }
+        $query1 = substr($query1, 0, strlen($query1) - 3);
+        $tag_ids = query($query1);
+        
+        $query2 = "INSERT INTO activities_tags (activity_id, tag_id) VALUES ";
+        
+        print_r($tag_ids);
+        
+        foreach ($tag_ids as $tag_id)
+        {
+            // every tag_id associated with this particular activity
+            $query2 .= "('" . mres($_GET['id']) . "', '". mres($tag_id['tag_id']) . "'), "; 
+        }               
+        $query2 = substr($query2, 0, strlen($query2) - 2);
+        query($query2);
         //render("tag_complete.php", array('title' => 'Rating complete!'));
         
     }
