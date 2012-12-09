@@ -1,3 +1,4 @@
+<script src="js/jquery.cookie.js"></script>
 <script>
         window.onload = upvotebuttons;
         function upvotebuttons(){
@@ -11,7 +12,7 @@
         }
         function showValue(button, upvotes, email)
         {
-            if($.cookie('upvoted') === null){            
+            if($.cookie('upvoted_<?echo $_GET['id']?>_'+email) === null){   
                 upvotes.innerHTML=button.value;
                 button.disabled=true;
                 $.ajax({
@@ -21,7 +22,7 @@
                       email: email
                   }              
                 });
-                $.cookie('upvoted', 'email+<?echo $_GET['id']?>');
+                $.cookie('upvoted_<?echo $_GET['id']?>_'+email, 1);
             }
         }
 </script>
@@ -53,9 +54,8 @@
     if(empty($comments))
     {
         echo "No Comments So far!<br></br>";
-        echo '<a href="rate.php?id=', $_GET['id'],' "class="btn btn-success">Rate ', $results['name'], '</a></div></br>';
     }
 ?>
     <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
-    <a href="rate.php?id=', $result['id'], '"class="btn btn-success">Rate this Activity</a>
+    <a href="rate.php?id=<?echo $_GET['id']?>" class="btn btn-success">Rate this Activity</a>
 </div>
