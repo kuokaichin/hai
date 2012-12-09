@@ -34,4 +34,5 @@
 
             <ul class="nav nav-pills">
                 <li><a href="index.php">Home</a></li>
+				<li><a href="help.php">Help</a></li>
             </ul>

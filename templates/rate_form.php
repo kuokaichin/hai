@@ -4,7 +4,8 @@
 </div>
 <form action=<?echo '"rate.php?id='. $id. '"'?> method="post">
     <fieldset>
-    <legend>Please enter your ratings:</legend>
+    <legend>Please enter your ratings! </legend>
+	<h5>Handy sliders only available in Chrome, Safari, and Opera. Otherwise please enter integers within indicated range, with 5 being highest.</h5>
             <!-- The javascript allows updating of values and value displayed when the bar is moved -->
             <script>
                 window.onload = updatingsliders;
@@ -24,7 +25,7 @@
             </script>
 
 <?
-    $categories = array("satisfaction" => array( 'name' => "Overall Satisfaction ", 'max' => 5), "time" => array( 'name' => "Time Commitment (hrs/wk)", 'max' => 20), "organization" => array( 'name' => "Organization and Professionalism", 'max' => 5), "selectiveness" => array( 'name' => "Selectivness", 'max' => 5), "friendliness" => array( 'name' => "Friendliness", 'max' => 5), "learning_impact" => array( 'name' => "Learning & Impact", 'max' => 5));
+    $categories = array("satisfaction" => array( 'name' => "Overall Satisfaction (1-5) ", 'max' => 5), "time" => array( 'name' => "Time Commitment (1-30 hrs/wk)", 'max' => 30), "organization" => array( 'name' => "Organization and Professionalism (1-5)", 'max' => 5), "selectiveness" => array( 'name' => "Selectivness (1-5, 5 being most selective)", 'max' => 5), "friendliness" => array( 'name' => "Friendliness (1-5)", 'max' => 5), "learning_impact" => array( 'name' => "Learning & Impact (1-5)", 'max' => 5));
     // html portion of form with sliders
     foreach ($categories as $cat => $array)
     {

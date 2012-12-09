@@ -20,10 +20,19 @@
             apologize("What activity is this?!?!s");
         }
         // verify completion of form
-        if (empty($_POST['satisfaction_input']) || empty($_POST['time_input']) || empty($_POST['organization_input']) || empty($_POST['selectiveness_input']) || empty($_POST['friendliness_input']) || empty($_POST['learning_impact_input']) || empty($_POST['email']))
+		if (empty($_POST['email']))
+		{
+			apologize("No email submitted!");
+		}
+        if (empty($_POST['satisfaction_input']) || empty($_POST['time_input']) || empty($_POST['organization_input']) || empty($_POST['selectiveness_input']) || empty($_POST['friendliness_input']) || empty($_POST['learning_impact_input']) )
         {
-            apologize("Invalid ratings!");
+            apologize("Incomplete Ratings!");
         }
+		if ($_POST['satisfaction_input'] < 1 || $_POST['satisfaction_input'] > 5 || $_POST['time_input'] < 1 || $_POST['time_input'] > 30 || $_POST['organization_input'] < 1 || $_POST['organization_input'] > 5 || $_POST['selectiveness_input'] < 1 || $_POST['selectiveness_input'] > 5 || $_POST['friendliness_input'] < 1 || $_POST['friendliness_input'] > 5 || $_POST['learning_impact_input'] < 1 || $_POST['learning_impact_input'] > 5)
+		{
+			apologize("Invalid Ratings!");
+		}
+		
         // verify Harvard email. More with verification and such in the future but currently it's just making sure Harvard is in there.
         if (!preg_match('#.*?@.*harvard.edu#',$_POST['email']))
         {

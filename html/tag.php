@@ -26,7 +26,8 @@
             apologize("You didn't enter any tags!");
         }
         // find largest ID currently used in the tags table so new tags get IDs larger than this
-        $max_id = query("SELECT tag_id FROM tags WHERE tag_id=(SELECT MAX(tag_id) FROM tags)")[0]['tag_id'];
+        $max = query("SELECT tag_id FROM tags WHERE tag_id=(SELECT MAX(tag_id) FROM tags)");
+        $max_id = $max[0]['tag_id'];
         // populate the array that will be inserted into tags 
         $insert = array();
         foreach($_POST as $tag)

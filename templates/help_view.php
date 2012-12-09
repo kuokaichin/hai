@@ -1,0 +1,2 @@
+<p><a href="http://youtu.be/pufltUBrbTo">Video Tutorial</a></p>
+<p>Feel free to <a href="mailto:kuokaichin@college.harvard.edu">email</a> the author of this page with bugs, questions, suggestions..etc!</p>
