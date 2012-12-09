@@ -5,6 +5,16 @@ Introduction
 
 Pages
 	index.php (home) & search.php
-		These are actually the same thing. In intentionally minimalist fashion, there is a single search box with a dropdown below it that allows the selection of filters. Users can enter any keywords associated with the activity and search either all (name, description, and tags) or one of those specifically. The name is simply the official name of the activity and the description is the official description clubs submitted to the OSL. Tags contain both the OSL designated categories, which each received a tag, and user-submitted tags regarding a certain activity. 
+		These are actually the same thing. In intentionally minimalist fashion, there is a single search box with a dropdown below it that allows the selection of filters. Users can enter any keywords associated with the activity and search either all (name, description, and tags) or one of those specifically. The name is simply the official name of the activity and the description is the official description clubs submitted to the OSL. Tags contain both the OSL designated categories, which each received a tag, and user-submitted tags regarding a certain activity. Search results show parts of the available data for each hit and has links to several options, including full details, read comments, rate this activity, and tag this activity.
+	activity.php
+		This is where it is possible to access full(er) details on the activity of interest. The data available is divided into three portions: Basic Information (obtained from the OSL), Average Ratings (from submissions of other users) and Top Comments (also from submissions of other users), which consists of the top 3 highest ranked comments. 
+	comments.php & upvote.php
+		Here one can see the full list of comments that have been made about the activity. It is also here where people can upvote certain more helpful comments. This form will prevent you from upvoting the same comment more than once. upvote.php is not a page that is linked to but rather accessed by javascript in comments_view.php to add upvotes to the database.
+	rate.php
+		Allows form submission of ratings of each category. It is necessary to submit a Harvard-affiliated email for the rating but it is actually not necessary to have a comment entered. The sliders on top toggle the value to be submitted.
+	tag.php
+		Allows the addition of up to 5 new tags which will be both added to the tag table and attached to the appropriate activity. While no error will appear if you attempt to submit tags that already exist, they will not be inserted into the table.
+	register.php*
+		for adding new admin accounts. This is not linked to and requires password login anyway, so only admins can add new admins.
 	admin.php, login.php, logout.php, scraper.php*
 		The factual data on student activities such as the name, email, and website was scraped using scraper.php from the website of the Office of Student Life (http://usodb.fas.harvard.edu/public/index.cgi). In order to update these values in my database, it would be possible truncate the Activities table and then just recall the scraper. For the general user, access to scraping password-protected and therefore inaccessible. Obviously, if graders wish to test this, 

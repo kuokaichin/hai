@@ -18,12 +18,14 @@
             }
             // get array of ID numbers of applicable orgs
             $hits = search(mres($_GET["search_value"]), $_GET["filter"]);
-            // 
+            
+            // make results array which only gets populated if there are hits 
             $results = array();
             foreach ($hits as $index => $id)
             {        
                 $results[$index] = lookup_quick($index);
             }
+            // pass results array to search results
             render("search_result.php", array("title" => "Search Results", "results" => $results));
         }
     }

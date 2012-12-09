@@ -20,9 +20,7 @@
     // enable sessions
     session_start();
 
-    // require authentication for most pages
-    // change this to require changes if you want to be admin and scrape!
-    
+    // require authentication for most pages that are not really meant to be accessed by general user    
     if (!preg_match("{(?:index|login|logout|register|search|activity|rate|comments|tag|register|upvote)\.php$}", $_SERVER["PHP_SELF"]))
     {
         if (empty($_SESSION["id"]))

@@ -28,35 +28,36 @@
         }
 </script>
 <div>
-<legend>Comments about <?echo $results['name'];?></legend>
-<table class="table table-condensed">
+<caption><h3>Comments about <?echo $results['name'];?></h3></caption>
 <?
     if(!empty($comments))
     {
+        echo '<table class="table table-condensed">';
         echo '<tr>
             <td>Upvotes</td><td/>
             <td>Comment</td>
-        </tr>';
+        </tr>';    
+        foreach($comments as $index => $comment)
+        {
+            echo '  
+                <tr>
+                    <td><span id="number_',$index,'" value="',$comment['email'],'">', $comment['upvotes'], '</span></td>
+                    <td>
+                        <button class="btn" id="button_', $index,'" value="', $comment['upvotes']+1,'"><i class="icon-arrow-up"></i></button>
+                    </td>
+                    <td>', $comment['comment'], '</td>
+                </tr></br>';
+        }
+    echo '</table>';
     }
-    foreach($comments as $index => $comment)
-    {
-        echo '  
-            <tr>
-                <td><span id="number_',$index,'" value="',$comment['email'],'">', $comment['upvotes'], '</span></td>
-                <td>
-                    <button class="btn" id="button_', $index,'" value="', $comment['upvotes']+1,'"><i class="icon-arrow-up"></i></button>
-                </td>
-                <td>', $comment['comment'], '</td>
-            </tr></br>';
-    }
-?>
-</table>
-<?
-    if(empty($comments))
+
+    else
     {
         echo "No Comments So far!<br></br>";
     }
 ?>
+<p>
     <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
     <a href="rate.php?id=<?echo $_GET['id']?>" class="btn btn-success">Rate this Activity</a>
+</p>
 </div>

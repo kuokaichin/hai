@@ -25,6 +25,7 @@
 
 <?
     $categories = array("satisfaction" => array( 'name' => "Overall Satisfaction ", 'max' => 5), "time" => array( 'name' => "Time Commitment (hrs/wk)", 'max' => 20), "organization" => array( 'name' => "Organization and Professionalism", 'max' => 5), "selectiveness" => array( 'name' => "Selectivness", 'max' => 5), "friendliness" => array( 'name' => "Friendliness", 'max' => 5), "learning_impact" => array( 'name' => "Learning & Impact", 'max' => 5));
+    // html portion of form with sliders
     foreach ($categories as $cat => $array)
     {
     echo '<div class="control-group">
@@ -38,7 +39,7 @@
         <div class="control-group">
             <label class="control-label" for="comment">Comments (1000 Character Limit)</label>
             <div class="controls">  
-              <textarea class="input-xlarge" name="comment" rows="3" maxlength="1000">I think this activity...</textarea>  
+              <textarea class="input-xlarge" name="comment" placeholder="I think this activity..."rows="3" maxlength="1000"></textarea>  
             </div>  
         </div>
         <div class="control-group">  
@@ -53,4 +54,5 @@
         </div>
     </fieldset>
 </form>
+<-- javascript back button -->
 <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>

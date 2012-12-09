@@ -13,6 +13,7 @@
         $results = lookup_quick($_GET["id"]);
         // get all the comments about the activity identified by id
         $comments = get_comments($_GET["id"]);
+        // give the template results and comments to use in display
         render("comments_view.php", array("title" => $results['name'], "results" => $results, "comments" => $comments));
     }
     else

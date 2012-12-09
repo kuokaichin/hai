@@ -48,9 +48,13 @@
         // destroy session
         session_destroy();
     }
-
+    
+    /**
+     * adds new tags and ids into the tags table.
+     */
     function insert_categories($categories_all)
     {
+        // build query
         $query = "INSERT INTO tags (tag_id, tag_name) VALUES ";
         foreach ($categories_all as $tag)
         {
@@ -73,15 +77,19 @@
      */
     function search($search_value, $filter)
     {
+        // array to be populated with search results
         $results = array();
+        // search name, description, and tags all at once
         if ($filter === "all")
         {
+            // pull IDs of activities where the name or description have the search value
             $query1 = "SELECT id FROM activities WHERE name LIKE '%" . $search_value . "%' OR description LIKE '%" . $search_value  ."%' ";
             $hits = query($query1);
             foreach ($hits as $hit)
             {
                 $results[$hit['id']] = $hit;
             }
+            // query for tags
             $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
             if (!empty($query_tags))
             {
@@ -98,6 +106,7 @@
                 }
             }
         }
+        // only search tags for value
         else if ($filter === "tags")
         {
             $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
@@ -116,6 +125,7 @@
                 }
             }
         }
+        // only search names or descriptions if those are the filters chosen
         else
         {
             $query = "SELECT id FROM activities WHERE $filter LIKE '%" . $search_value . "%'";
@@ -125,7 +135,6 @@
                 $results[$hit['id']] = $hit;
             }
         }
-
         return $results;
     }
 
@@ -136,6 +145,7 @@
     {
         $data1 = query("SELECT name, description, email, website, size, members FROM activities WHERE id = $activity_id");
         $data2 = query("SELECT ROUND(AVG(satisfaction),2) as satisfaction, ROUND(AVG(time),2) as time, ROUND(AVG(organization),2) as organization, ROUND(AVG(selectiveness),2) as selectiveness, ROUND(AVG(friendliness),2) as friendliness, ROUND(AVG(learning_impact),2) as learning_impact FROM ratings_all WHERE id = $activity_id");
+        // since all ratings are submitted together, one of them being empty means that there are no ratings for any of the others
         if (empty($data2[0]['satisfaction']))
         {
             $data2[0]['satisfaction'] = "No ratings so far";
@@ -227,14 +237,6 @@
         return $comments;
     }
     
-    /**
-     * Add tags associated with activity
-     */    
-    function tag($activity_id, $tags)
-    {
-        
-    }
-
     /**
      * Executes SQL statement, possibly with parameters, returning
      * an array of all rows in result set or false on (non-fatal) error.

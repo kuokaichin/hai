@@ -1,5 +1,5 @@
 <h2><?echo $results['name'];?></h2>
-<legend>Basic Information</legend>
+<caption><h3>Basic Information</h3></caption>
 <table class="table table-condensed">    
     <tr>
         <td>Description</td>
@@ -7,11 +7,11 @@
     </tr>
     <tr>
         <td>Email</td>
-        <td><?echo $results['email'];?></td>
+        <td><a href="<?echo $results['email'];?>"><?echo $results['email'];?></td>
     </tr>
     <tr>
         <td>Website</td>
-        <td><?echo $results['website'];?></td>
+        <td><a href="<?echo $results['website'];?>"><?echo $results['website'];?></a></td>
     </tr>
     <tr>
         <td>Size</td>
@@ -25,7 +25,7 @@
             <td><?echo $results['tags'];?></td>
         </tr>
 </table>
-<legend>Average Ratings</legend>
+<caption><h3>Average Ratings</h3></caption>
 <table class="table table-condensed">
     <tr>
         <td>Overall Satisfaction</td>
@@ -51,7 +51,7 @@
         <td>Learning & Impact</td>
         <td><?echo $results['learning_impact'];?> / 5.00</td>    
 </table>
-<legend>Top Comments</legend>
+<caption><h3>Top Comments</h3></caption>
 <table>
     <? 
     $num = count($comments);

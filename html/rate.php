@@ -12,7 +12,6 @@
         // query database for a few details about the activity, most notably name        
         $results = lookup_quick($_GET['id']);
         render("rate_form.php", array("title" => "Rate " . $results['name'], "results" => $results, "id" => $_GET['id']));
-
     }
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
