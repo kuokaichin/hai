@@ -83,35 +83,38 @@
                 $results[$hit['id']] = $hit;
             }
             $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
-            $query2 = "SELECT activity_id FROM activities_tags WHERE ";
-            foreach ($query_tags as $tag)
-            {         
-                $query2 .= "tag_id=$tag[tag_id] OR ";
-            }
-            $query2 = substr($query2, 0 , strlen($query2) - 4);            
-            $hits2 = query($query2);
-            foreach ($hits2 as $hit)
+            if (!empty($query_tags))
             {
-                $results[$hit['activity_id']] = $hit;
+                $query2 = "SELECT activity_id FROM activities_tags WHERE ";
+                foreach ($query_tags as $tag)
+                {         
+                    $query2 .= "tag_id=$tag[tag_id] OR ";
+                }
+                $query2 = substr($query2, 0 , strlen($query2) - 4);            
+                $hits2 = query($query2);
+                foreach ($hits2 as $hit)
+                {
+                    $results[$hit['activity_id']] = $hit;
+                }
             }
-            
         }
         else if ($filter === "tags")
         {
-        
             $query_tags = query("SELECT tag_id FROM tags WHERE tag_name LIKE '%" . $search_value . "%' ");
-            $query2 = "SELECT activity_id FROM activities_tags WHERE ";
-            foreach ($query_tags as $tag)
-            {         
-                $query2 .= "tag_id=$tag[tag_id] OR ";
-            }
-            $query2 = substr($query2, 0 , strlen($query2) - 4);            
-            $hits2 = query($query2);
-            foreach ($hits2 as $hit)
+            if (!empty($query_tags))
             {
-                $results[$hit['activity_id']] = $hit;
+                $query2 = "SELECT activity_id FROM activities_tags WHERE ";
+                foreach ($query_tags as $tag)
+                {         
+                    $query2 .= "tag_id=$tag[tag_id] OR ";
+                }
+                $query2 = substr($query2, 0 , strlen($query2) - 4);            
+                $hits2 = query($query2);
+                foreach ($hits2 as $hit)
+                {
+                    $results[$hit['activity_id']] = $hit;
+                }
             }
-        
         }
         else
         {

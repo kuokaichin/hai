@@ -13,6 +13,7 @@
         function showValue(button, upvotes, email)
         {
             if($.cookie('upvoted_<?echo $_GET['id']?>_'+email) === null){   
+                alert("byaaH");
                 upvotes.innerHTML=button.value;
                 button.disabled=true;
                 $.ajax({
