@@ -2,7 +2,8 @@ Design Document for Harvard Activities Index (HAI) by Kuo-Kai Chin '15
 
 Overview
 	This project was implemented using mainly PHP and HTML with a mySQL database but also a smattering of Javascript.
-mySQL Database Tables
+
+	mySQL Database Tables
 	activity
 		primary OSL information about the activity, this comes from scraper.php and ID is the unique value. 
 	activity_tags
@@ -29,3 +30,6 @@ PHP/HTML/JS Pages
 		simple registration form, it requires password to be typed twice or else apologies will occur.
 	admin.php, login.php, logout.php, scraper.php*
 		While the general user will never call scraper, this scraper is incredibly important since it acquires the majority of data to be used. This works by parsing the html of the OSL page as a string and using a series of regular expression preg_matches to put data into an array, which is then formatted in a way appropriate for mySQL INSERT queries.
+		
+Version Control
+	I used GitHub for version control and the repositories can be viewed here: https://github.com/kuokaichin/hai.git

@@ -7,7 +7,6 @@
     </tr>
     <tr>
         <td>Email</td>
-        href="mailto:soandso@email.com"
         <td><a href="mailto:<?echo $results['email'];?>"><?echo $results['email'];?></a></td>
     </tr>
     <tr>
