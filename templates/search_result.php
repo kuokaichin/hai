@@ -35,8 +35,8 @@
              '<tr><td>Overall Rating</td><td>', $result['satisfaction'], ' / 5.00</td></tr><br/>
             <br/>
             <tr><td>Tags</td><td>', $result['tags'], '</td></tr><br/>
-            <tr><td>Options</td><td><a href="activity.php?id=', $result['id'], '"class="btn btn-info">Details    </a>
-            <a href="comments.php?id=', $result['id'], '"class="btn btn-info">Comments    </a>
+            <tr><td>Options</td><td><a href="activity.php?id=', $result['id'], '"class="btn btn-info">Details</a>
+            <a href="comments.php?id=', $result['id'], '"class="btn btn-info">Comments</a>
             <a href="tag.php?id=', $result['id'], '"class="btn btn-success">Tag this Activity</a>
             <a href="rate.php?id=', $result['id'], '"class="btn btn-success">Rate this Activity</a><br/></td></tr><br/>
         </table>';

@@ -56,3 +56,5 @@
     </fieldset>
 </form>
 <button class="btn btn-info" value="back" onClick="history.go(-1);return true;"><i class="icon-white icon-arrow-left"></i></button>
+<a href="activity.php?id=<?echo $_GET['id']?>"class="btn btn-info">Details</a>
+

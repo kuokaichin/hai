@@ -78,6 +78,18 @@
     {
         // array to be populated with search results
         $results = array();
+		
+		// return all activities in event of empty search
+		if (empty($search_value))
+		{
+			$query = "SELECT id FROM activities";
+			$hits = query($query);
+			foreach ($hits as $hit)
+            {
+                $results[$hit['id']] = $hit;
+            }
+			return $results;
+		}
         // search name, description, and tags all at once
         if ($filter === "all")
         {
